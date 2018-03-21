@@ -72,11 +72,9 @@ public class HubService {
 
     @GET
     public List<HubDTO> allHubs(@PathParam("idAcceso") String idAc) throws Exception {
-        if (!idAc.equalsIgnoreCase("Yale")) {
-            throw new Exception("Solo un administrador de Yale puede manipular los Hubs");
-        } else {
+        
             return hubLogic.all();
-        }
+        
     }
 
     @GET
@@ -131,9 +129,13 @@ public class HubService {
 
     @GET
     @Path("{idHub}/unidadesResidenciales")
-    public List<UnidadResidencialDTO> getUniRes(@PathParam("idAcceso") String idAc, @PathParam("idHub") String idH) {
+    public List<UnidadResidencialDTO> getUniRes(@PathParam("idAcceso") String idAc, @PathParam("idHub") String idH) throws Exception {
+        if (!idAc.equalsIgnoreCase("Yale")) {
+            throw new Exception("Solo un administrador de Yale puede agregar nuevas unidades residenciales");
+        } else {
         List<UnidadResidencialDTO> result = uniResLogic.allDeUnHub(idH);
         return result;
+        }
     }
 
     @GET
@@ -156,15 +158,15 @@ public class HubService {
     @PUT
     @Path("{idHub}/unidadesResidenciales/{idUn}")
     public UnidadResidencialDTO updateUniRes(@PathParam("idAcceso") String idAc, UnidadResidencialDTO dto) throws Exception {
-        UnidadResidencialDTO result = uniResLogic.update(dto);
+        UnidadResidencialDTO result = uniResLogic.find(dto.getId());
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getName().equalsIgnoreCase(idAc)) {
                 throw new Exception("Sólo la seguridad de la unidad residencial o Yale puede acceder a la información de la unidad residencial " + result.getName());
             } else {
-                return result;
+                return uniResLogic.update(dto);
             }
         } else {
-            return result;
+            return uniResLogic.update(dto);
         }
     }
 
@@ -187,15 +189,14 @@ public class HubService {
     @POST
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles")
     public InmuebleDTO addInmueble(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU, InmuebleDTO dto) throws Exception {
-        InmuebleDTO result = inmuebleLogic.add(dto, idU);
         if (!idAc.equalsIgnoreCase("Yale")) {
-            if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
-                throw new Exception("Sólo la seguridad de la unidad residencial o Yale puede acceder a la información de la unidad residencial " + result.getIdUnidad());
+            if (!idU.equalsIgnoreCase(idAc)) {
+                throw new Exception("Sólo la seguridad de la unidad residencial o Yale puede acceder a la información de la unidad residencial " + idU);
             } else {
-                return result;
+                return inmuebleLogic.add(dto, idU);
             }
         } else {
-            return result;
+            return inmuebleLogic.add(dto, idU);
         }
     }
 
@@ -230,18 +231,18 @@ public class HubService {
 
     @PUT
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idI}")
-    public InmuebleDTO updateInmueble(@PathParam("idAcceso") String idAc, InmuebleDTO dto) throws Exception {
-        InmuebleDTO result = inmuebleLogic.update(dto);
+    public InmuebleDTO updateInmueble(@PathParam("idAcceso") String idAc, InmuebleDTO dto, @PathParam("idI") String idI) throws Exception {
+        InmuebleDTO result = inmuebleLogic.find(idI);
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
                 if (!result.getPropietario().equalsIgnoreCase(idAc)) {
                     throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información del inmueble " + result.getId());
                 } else {
-                    return result;
+                    return inmuebleLogic.update(dto);
                 }
             }
         }
-        return result;
+        return inmuebleLogic.update(dto);
     }
 
     @DELETE
@@ -268,7 +269,6 @@ public class HubService {
     @POST
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores")
     public SensorDTO addSensor(@PathParam("idAcceso") String idAc, @PathParam("idU") String idU, SensorDTO dto) throws Exception {
-        SensorDTO result1 = sensorLogic.add(dto, idU);
         InmuebleDTO result = inmuebleLogic.find(idU);
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
@@ -278,13 +278,12 @@ public class HubService {
             }
         }
 
-        return result1;
+        return sensorLogic.add(dto, idU);
     }
 
     @GET
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores")
     public List<SensorDTO> getSensors(@PathParam("idAcceso") String idAc, @PathParam("idU") String idU) throws Exception {
-        List<SensorDTO> result1 = sensorLogic.findDeInmueble(idU);
         InmuebleDTO result = inmuebleLogic.find(idU);
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
@@ -294,13 +293,12 @@ public class HubService {
             }
         }
 
-        return result1;
+        return sensorLogic.findDeInmueble(idU);
     }
 
     @GET
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}")
     public SensorDTO getSensor(@PathParam("idAcceso") String idAc, @PathParam("idS") String idS, @PathParam("idU") String idU) throws Exception {
-        SensorDTO result1 = sensorLogic.find(idS);
         InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
@@ -311,13 +309,12 @@ public class HubService {
             }
         }
 
-        return result1;
+        return sensorLogic.find(idS);
     }
 
     @PUT
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores")
     public SensorDTO updateSensor(@PathParam("idAcceso") String idAc, SensorDTO dto, @PathParam("idU") String idU) throws Exception {
-        SensorDTO result1 = sensorLogic.update(dto);
         InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
@@ -328,7 +325,7 @@ public class HubService {
             }
         }
 
-        return result1;
+        return sensorLogic.update(dto);
     }
 
     @DELETE
@@ -354,69 +351,67 @@ public class HubService {
     @POST
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas")
     public AlarmaDTO addAlarma(@PathParam("idAcceso") String idAc, @PathParam("idS") String idS, AlarmaDTO dto, @PathParam("idU") String idU) throws Exception {
-        AlarmaDTO result1 = alarmaLogic.add(dto, idS);
         InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
+                if(!dto.getIdSensor().equals(idS)){
                 if (!result.getPropietario().equalsIgnoreCase(idAc)) {
-                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información del inmueble " + result.getId());
-                }
+                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información de sensores del inmueble " + result.getId());
+                }}
             }
         }
 
-        return result1;
+        return alarmaLogic.add(dto, idS);
     }
 
     @GET
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas")
     public List<AlarmaDTO> getAlarmas(@PathParam("idAcceso") String idAc, @PathParam("idS") String idS, @PathParam("idU") String idU) throws Exception {
-        List<AlarmaDTO> result1 = alarmaLogic.findBySensorId(idS);
+        
         InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
                 if (!result.getPropietario().equalsIgnoreCase(idAc)) {
-                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información del inmueble " + result.getId());
+                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información de sensores del inmueble " + result.getId());
                 }
             }
         }
 
-        return result1;
+        return alarmaLogic.findBySensorId(idS);
     }
 
     @GET
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas/{idA}")
     public AlarmaDTO getAlarma(@PathParam("idAcceso") String idAc, @PathParam("idA") String idA, @PathParam("idU") String idU) throws Exception {
-        AlarmaDTO result1 = alarmaLogic.find(idA);
-        InmuebleDTO result = inmuebleLogic.find(idU);
+          InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
                 if (!result.getPropietario().equalsIgnoreCase(idAc)) {
-                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información del inmueble " + result.getId());
+                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información de sensores del inmueble " + result.getId());
                 }
             }
         }
 
-        return result1;
+        return alarmaLogic.find(idA);
     }
 
     @PUT
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas")
     public AlarmaDTO updateAlarma(@PathParam("idAcceso") String idAc, AlarmaDTO dto, @PathParam("idU") String idU) throws Exception {
-        AlarmaDTO result1 = alarmaLogic.update(dto);
-        InmuebleDTO result = inmuebleLogic.find(idU);
+       InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
                 if (!result.getPropietario().equalsIgnoreCase(idAc)) {
-                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información del inmueble " + result.getId());
+                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información de sensores del inmueble " + result.getId());
                 }
             }
         }
 
-        return result1;
+        return alarmaLogic.update(dto);
     }
 
     @DELETE
@@ -427,7 +422,7 @@ public class HubService {
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
                 if (!result.getPropietario().equalsIgnoreCase(idAc)) {
-                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información del inmueble " + result.getId());
+                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información de sensores del inmueble " + result.getId());
                 }
             }
         }
