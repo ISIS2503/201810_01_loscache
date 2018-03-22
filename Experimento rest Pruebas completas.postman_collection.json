@@ -1,0 +1,2324 @@
+{
+	"id": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+	"name": "Experimento rest",
+	"description": "",
+	"order": [
+		"6b5e76cb-944e-f6ba-3ec0-28d74d5f11e3",
+		"e04fa9c3-96a7-4b8f-71b6-7fc9ac2fc207",
+		"e548ed91-c2f0-50f7-16cb-3b47463547d1",
+		"d0f0d71a-e25d-1613-e3ac-499aabda215e",
+		"692ddbed-b346-3881-83ad-382b58c2f5ec",
+		"106e3a88-7c2f-e1c2-350f-329e999ba1f8",
+		"78570db8-0768-f242-77f4-f44a4c7cb6b3",
+		"80d57b2f-096c-1251-f226-7f878118b937",
+		"aba0e84c-4c2c-280b-78fd-4f14140ac5c4",
+		"63094dbb-832d-a4b5-a74f-b661189e4735",
+		"46a13ade-5ed0-1f6e-b976-9b87556a3dea",
+		"e76ced65-b068-3625-7681-b08077c3a1ee",
+		"79caf56b-ea3a-29b0-2e5a-234247bf39f5",
+		"8f755053-410e-4dfc-0023-ce96d9d04013",
+		"f38c13aa-9a09-8d56-b40a-1024ed9ef9fb",
+		"fde36ed5-fa5c-8807-496d-43b5b3f60c6c",
+		"ee16ef42-be92-d740-8b1d-8fa11a15fe80",
+		"91619437-4e1e-8df4-847b-147d2972a5d3",
+		"6b708031-e387-7a96-5183-06be61c80a03",
+		"40ecfd77-35d2-8729-b084-81410cc026fe",
+		"e3fe561c-c2fe-b8cc-cf2e-8813052cc6f5",
+		"b562c956-1781-6b61-ef72-e473ff204701",
+		"c08e5ee3-80f5-31a4-e65f-fad0671c9d31",
+		"cf3b5c17-13f9-ef0f-f1e1-09529bc64af0",
+		"de1d6f46-b0db-2123-b9e9-d7dbaab9267e",
+		"0f322b82-094b-1e51-bd99-3f5c2346cebf",
+		"6754eeb0-3bf5-e833-2fdc-84bd6bf83333",
+		"af11a0f5-76fb-b648-2d71-16c7190c46eb",
+		"45f73c03-3b85-f9f8-828d-6ac9bb467b29",
+		"b3f932b4-a73b-95db-e55c-5ba389f65d71",
+		"e139a933-1ed9-8dcb-fffe-1c361a6be73a",
+		"52d5cea9-9ac7-7042-93f0-34e76ef77fa3",
+		"fdf1293b-7655-7210-6c95-69475248b839",
+		"96661a3f-01be-53cf-0abd-b2048724648b",
+		"049bdf75-6926-f801-169c-bfaa37a9a14f",
+		"8f69ca95-d6e7-d6ab-bbb1-8626a89d1666",
+		"759d8eab-17d5-f21a-7910-6aad63723260",
+		"36e4f74e-bab7-d3eb-2e34-dbe89aff5579",
+		"2f9ffc28-58ca-c55e-b2d9-345c59575bc1",
+		"b26bc65c-bdc9-9378-2c06-7c7642025b70",
+		"ca291555-6f02-de3b-a904-cde32003a8c6",
+		"0905a551-5cac-4a8f-24fc-6fb0566aa46d",
+		"ec62168e-dc88-fd29-c22b-a241230c2bad",
+		"13b92df0-a533-a270-e65d-2248582f0016",
+		"c2d1f133-0c34-0e3d-4485-647b8738846e",
+		"2051cfdb-b602-5f52-e7d9-d4638d2ebe9f",
+		"e2b23d78-1983-5cd3-8a26-e2ec9174da1b",
+		"ac5d218e-315e-3a87-ba90-ed48410596d3",
+		"c476f12e-c340-ed21-3e9c-30106989a965",
+		"01464da0-295c-1edd-54da-b5592f75e25f",
+		"f9c48e23-3fdc-9346-eb9c-2ef347e17cdc",
+		"50515644-8d13-9939-c78f-1c8ff311ed06",
+		"c33c1f9d-0788-8794-7436-05499a14d893",
+		"f7ea7447-49e9-14b4-f3a1-26845623f1b4"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1521681215760,
+	"owner": 0,
+	"public": false,
+	"events": [],
+	"variables": [],
+	"auth": null,
+	"requests": [
+		{
+			"id": "01464da0-295c-1edd-54da-b5592f75e25f",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521692201838,
+			"name": "Obtener alarmas",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "049bdf75-6926-f801-169c-bfaa37a9a14f",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521690992405,
+			"name": "Crear sensor 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"1\",\n    \"activado\": 1,\n    \"maxIntentosFallidos\": 3,\n    \"alarmas\": [],\n    \"idInmueble\": \"1\"\n}"
+		},
+		{
+			"id": "0905a551-5cac-4a8f-24fc-6fb0566aa46d",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521691160888,
+			"name": "Obtener sensor 1 tras actualización",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"isFromCollection": true,
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "0f322b82-094b-1e51-bd99-3f5c2346cebf",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521690137291,
+			"name": "Crear inmueble 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"2\",\n    \"idUnidad\": \"1\",\n    \"propietario\": \"Juan Casallas\",\n    \"activado\": 1,\n    \"sensores\": []\n}"
+		},
+		{
+			"id": "106e3a88-7c2f-e1c2-350f-329e999ba1f8",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bec846aa-21ac-469f-bb63-3efe8b376031",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"auth": null,
+			"time": 1521682044452,
+			"name": "Obtener hub 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "13b92df0-a533-a270-e65d-2248582f0016",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521691578396,
+			"name": "Obtener sensores tras borrado",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "2051cfdb-b602-5f52-e7d9-d4638d2ebe9f",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521692060573,
+			"name": "Crear alarma 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"2\",\n    \"idSensor\": \"1\",\n    \"activado\": 1,\n    \"mensaje\": \"m3\"\n}"
+		},
+		{
+			"id": "2f9ffc28-58ca-c55e-b2d9-345c59575bc1",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/2",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521691191723,
+			"name": "Obtener sensor 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "36e4f74e-bab7-d3eb-2e34-dbe89aff5579",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521691160888,
+			"name": "Obtener sensor 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "40ecfd77-35d2-8729-b084-81410cc026fe",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521684957780,
+			"name": "Obtener unidades",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "45f73c03-3b85-f9f8-828d-6ac9bb467b29",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521690278283,
+			"name": "Obtener inmueble 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "46a13ade-5ed0-1f6e-b976-9b87556a3dea",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bec846aa-21ac-469f-bb63-3efe8b376031",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"auth": null,
+			"time": 1521682044452,
+			"name": "Obtener hub 2, verificar cambio",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "50515644-8d13-9939-c78f-1c8ff311ed06",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521692277373,
+			"name": "Obtener alarma 1 modificado",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "52d5cea9-9ac7-7042-93f0-34e76ef77fa3",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521690467602,
+			"name": "Obtener inmueble 1 modificado",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "63094dbb-832d-a4b5-a74f-b661189e4735",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47ed6071-2850-4b77-b8a2-2fcd0307231c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521682239882,
+			"name": "Actualizar hub 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"2\",\n    \"activado\": 1,\n    \"unidadesResidenciales\": [],\n    \"maxChecksPermitidos\": 334\n}"
+		},
+		{
+			"id": "6754eeb0-3bf5-e833-2fdc-84bd6bf83333",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521690179848,
+			"name": "Crear inmueble 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"3\",\n    \"idUnidad\": \"1\",\n    \"propietario\": \"Juan Casallas Posada\",\n    \"activado\": 1,\n    \"sensores\": []\n}"
+		},
+		{
+			"id": "692ddbed-b346-3881-83ad-382b58c2f5ec",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edaa63c4-b0e6-4bdf-8653-2418bb9b9891",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"auth": null,
+			"method": "GET",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"data": null,
+			"dataMode": "params",
+			"name": "Obtener Hubs",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1521681911619,
+			"version": 2,
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "6b5e76cb-944e-f6ba-3ec0-28d74d5f11e3",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d485a8e-eeca-468e-b396-db07b07253d5",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521681884724,
+			"name": "Crear hub 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"1\",\n    \"activado\": 1,\n    \"unidadesResidenciales\": [],\n    \"maxChecksPermitidos\": 4\n}"
+		},
+		{
+			"id": "6b708031-e387-7a96-5183-06be61c80a03",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/3",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521684914488,
+			"name": "Obtener unidad residencial 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "759d8eab-17d5-f21a-7910-6aad63723260",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521691081780,
+			"name": "Crear sensor 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"3\",\n    \"activado\": 1,\n    \"maxIntentosFallidos\": 31,\n    \"alarmas\": [],\n    \"idInmueble\": \"1\"\n}"
+		},
+		{
+			"id": "78570db8-0768-f242-77f4-f44a4c7cb6b3",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs/2",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bec846aa-21ac-469f-bb63-3efe8b376031",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"auth": null,
+			"method": "GET",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"data": null,
+			"dataMode": "params",
+			"name": "Obtener hub 2",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1521682055692,
+			"version": 2,
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "79caf56b-ea3a-29b0-2e5a-234247bf39f5",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs/4",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35faf67c-0573-412d-94eb-3f107f63a5eb",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"auth": null,
+			"time": 1521682461155,
+			"name": "Borrar hub 4",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "80d57b2f-096c-1251-f226-7f878118b937",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47ed6071-2850-4b77-b8a2-2fcd0307231c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"auth": null,
+			"method": "PUT",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Actualizar hub 2",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1521682194182,
+			"version": 2,
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"2\",\n    \"activado\": 1,\n    \"unidadesResidenciales\": [],\n    \"maxChecksPermitidos\": 33\n}"
+		},
+		{
+			"id": "8f69ca95-d6e7-d6ab-bbb1-8626a89d1666",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521691033263,
+			"name": "Crear sensor 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"2\",\n    \"activado\": 1,\n    \"maxIntentosFallidos\": 32,\n    \"alarmas\": [],\n    \"idInmueble\": \"1\"\n}"
+		},
+		{
+			"id": "8f755053-410e-4dfc-0023-ce96d9d04013",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "edaa63c4-b0e6-4bdf-8653-2418bb9b9891",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"auth": null,
+			"method": "GET",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"data": null,
+			"dataMode": "params",
+			"name": "Obtener Hubs tras borrado",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1521681911619,
+			"version": 2,
+			"responses": [],
+			"isFromCollection": true,
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "91619437-4e1e-8df4-847b-147d2972a5d3",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521684893603,
+			"name": "Obtener unidad residencial 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "96661a3f-01be-53cf-0abd-b2048724648b",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521690208979,
+			"name": "Obtener inmuebles tras borrado",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "aba0e84c-4c2c-280b-78fd-4f14140ac5c4",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs/2",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bec846aa-21ac-469f-bb63-3efe8b376031",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"auth": null,
+			"method": "GET",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"data": null,
+			"dataMode": "params",
+			"name": "Obtener hub 2  verificar cambio",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1521682055692,
+			"version": 2,
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "ac5d218e-315e-3a87-ba90-ed48410596d3",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521692142409,
+			"name": "Obtener alarma 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "af11a0f5-76fb-b648-2d71-16c7190c46eb",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521690208979,
+			"name": "Obtener inmuebles",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "b26bc65c-bdc9-9378-2c06-7c7642025b70",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521691219402,
+			"name": "Obtener sensores",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "b3f932b4-a73b-95db-e55c-5ba389f65d71",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/2",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521690313291,
+			"name": "Obtener inmueble 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "b562c956-1781-6b61-ef72-e473ff204701",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521684893603,
+			"name": "Obtener unidad tras cambio",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "c08e5ee3-80f5-31a4-e65f-fad0671c9d31",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/3",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521685108744,
+			"name": "Borrar unidad residencial 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "c2d1f133-0c34-0e3d-4485-647b8738846e",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521692000606,
+			"name": "Crear alarma 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"1\"\n}"
+		},
+		{
+			"id": "c33c1f9d-0788-8794-7436-05499a14d893",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas/2",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521692382327,
+			"name": "Borrar alarma 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "c476f12e-c340-ed21-3e9c-30106989a965",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas/2",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521692160883,
+			"name": "Obtener alarma 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "ca291555-6f02-de3b-a904-cde32003a8c6",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521691512342,
+			"name": "Actualizar sensor 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"1\",\n    \"activado\": 1,\n    \"maxIntentosFallidos\": 3111,\n    \"alarmas\": [],\n    \"idInmueble\": \"1\"\n}"
+		},
+		{
+			"id": "cf3b5c17-13f9-ef0f-f1e1-09529bc64af0",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521684957780,
+			"name": "Obtener unidades copy",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"isFromCollection": true,
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "d0f0d71a-e25d-1613-e3ac-499aabda215e",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "894f370f-ef5f-415b-b428-4280915f006d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521681988400,
+			"name": "Crear Hub 4",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"4\",\n    \"activado\": 1,\n    \"unidadesResidenciales\": [],\n    \"maxChecksPermitidos\": 3\n}"
+		},
+		{
+			"id": "de1d6f46-b0db-2123-b9e9-d7dbaab9267e",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521690073864,
+			"name": "Crear inmueble 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"1\",\n    \"idUnidad\": \"1\",\n    \"propietario\": \"Juan\",\n    \"activado\": 1,\n    \"sensores\": []\n}"
+		},
+		{
+			"id": "e04fa9c3-96a7-4b8f-71b6-7fc9ac2fc207",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89158d0f-7c03-47d7-bfc5-73a2a5c12bca",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521681966058,
+			"name": "Crear hub 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"2\",\n    \"activado\": 1,\n    \"unidadesResidenciales\": [],\n    \"maxChecksPermitidos\": 3\n}"
+		},
+		{
+			"id": "e139a933-1ed9-8dcb-fffe-1c361a6be73a",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521690460610,
+			"name": "Actualizar inmueble 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"1\",\n    \"idUnidad\": \"1\",\n    \"propietario\": \"Juan Juan\",\n    \"activado\": 1,\n    \"sensores\": []\n}"
+		},
+		{
+			"id": "e2b23d78-1983-5cd3-8a26-e2ec9174da1b",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521692081187,
+			"name": "Crear alarma 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"3\",\n    \"idSensor\": \"1\",\n    \"activado\": 1,\n    \"mensaje\": \"m3 tres\"\n}"
+		},
+		{
+			"id": "e3fe561c-c2fe-b8cc-cf2e-8813052cc6f5",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521685027056,
+			"name": "Actualizar unidad residencial",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPruebaCAmbio\",\n    \"id\": \"1\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "e548ed91-c2f0-50f7-16cb-3b47463547d1",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40b09bd8-2437-44ee-acf8-cfa39f8ec340",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521681976013,
+			"name": "Crear hub 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"3\",\n    \"activado\": 1,\n    \"unidadesResidenciales\": [],\n    \"maxChecksPermitidos\": 3\n}"
+		},
+		{
+			"id": "e76ced65-b068-3625-7681-b08077c3a1ee",
+			"headers": "",
+			"headerData": [],
+			"url": "http://localhost:8080/yale/hubs/3",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35faf67c-0573-412d-94eb-3f107f63a5eb",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"auth": null,
+			"method": "DELETE",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"data": null,
+			"dataMode": "params",
+			"name": "Borrar hub 3",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1521682433798,
+			"version": 2,
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null
+		},
+		{
+			"id": "ec62168e-dc88-fd29-c22b-a241230c2bad",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/2",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521691570448,
+			"name": "Borrar sensor 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "ee16ef42-be92-d740-8b1d-8fa11a15fe80",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521684789592,
+			"name": "Crear unidad 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"uni\",\n    \"id\": \"3\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "f38c13aa-9a09-8d56-b40a-1024ed9ef9fb",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b894293-54e4-400c-8925-e9e5c9fd5fc4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"auth": null,
+			"time": 1521684701995,
+			"name": "Crear unidad 1",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"1\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "f7ea7447-49e9-14b4-f3a1-26845623f1b4",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521692308137,
+			"name": "Obtener alarmas tras borrado",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "f9c48e23-3fdc-9346-eb9c-2ef347e17cdc",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/1/sensores/1/alarmas",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521692272150,
+			"name": "Actualizar sensor 1 copy",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"id\": \"1\",\n    \"idSensor\": \"1\",\n    \"activado\": 1,\n    \"mensaje\": \"Mensaje\"\n}"
+		},
+		{
+			"id": "fde36ed5-fa5c-8807-496d-43b5b3f60c6c",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521684724734,
+			"name": "Crear unidad 2",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		},
+		{
+			"id": "fdf1293b-7655-7210-6c95-69475248b839",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8080/yale/hubs/1/unidadesResidenciales/1/inmuebles/3",
+			"queryParams": [],
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2df191b-9d73-426d-91ac-68750d8cbdc0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 200\"]=responseCode.code==200"
+						]
+					}
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"auth": null,
+			"time": 1521690543960,
+			"name": "Borrar inmueble 3",
+			"description": "",
+			"collectionId": "a5a1af04-7faa-d656-248e-26e3bf37f933",
+			"responses": [],
+			"preRequestScript": null,
+			"tests": "tests[\"Status code is 200\"]=responseCode.code==200",
+			"currentHelper": null,
+			"helperAttributes": null,
+			"rawModeData": "{\n    \"name\": \"unidadPrueba\",\n    \"id\": \"2\",\n    \"inmuebles\": [],\n    \"direccion\": null,\n    \"activado\": 1,\n    \"idHub\": \"1\"\n}"
+		}
+	]
+}
