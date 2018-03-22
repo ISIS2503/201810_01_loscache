@@ -35,7 +35,7 @@ import java.util.UUID;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class HubLogic{
     
@@ -89,8 +89,11 @@ public class HubLogic{
     
     public HubDTO delete(String id) {
         HubEntity a=persistence.find(id);
+        System.err.println("ola");
         a.setActivado(0);
         persistence.update(a);
+                System.err.println("ola2");
+
         return CONVERTER.entityToDto(a);
     }
 }

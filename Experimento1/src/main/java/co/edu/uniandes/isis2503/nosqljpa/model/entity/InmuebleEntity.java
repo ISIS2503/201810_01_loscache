@@ -32,7 +32,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicUpdate;
 /**
  *
- * @author f.posada
+ * @author loscache
  */
 @Entity
 @Table(name = "INMUEBLE")

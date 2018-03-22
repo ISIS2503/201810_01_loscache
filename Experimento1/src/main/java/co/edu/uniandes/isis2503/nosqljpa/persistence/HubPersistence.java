@@ -27,7 +27,7 @@ import co.edu.uniandes.isis2503.nosqljpa.model.entity.HubEntity;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class HubPersistence extends Persistencer<HubEntity, String>{
 

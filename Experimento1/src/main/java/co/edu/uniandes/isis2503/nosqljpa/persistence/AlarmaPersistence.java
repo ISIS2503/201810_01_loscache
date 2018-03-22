@@ -27,7 +27,7 @@ import co.edu.uniandes.isis2503.nosqljpa.model.entity.AlarmaEntity;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class AlarmaPersistence extends Persistencer<AlarmaEntity, String>{
 

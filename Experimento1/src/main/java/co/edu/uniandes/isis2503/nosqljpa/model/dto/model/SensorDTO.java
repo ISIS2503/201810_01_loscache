@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 @XmlRootElement
 public class SensorDTO {

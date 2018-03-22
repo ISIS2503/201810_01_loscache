@@ -35,7 +35,7 @@ import java.util.UUID;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class AlarmaLogic implements IAlarmaLogic {
 
@@ -72,7 +72,14 @@ public class AlarmaLogic implements IAlarmaLogic {
     
     
     public List<AlarmaDTO> findBySensorId(String id) {
-        return CONVERTER.listEntitiesToListDTOs(persistence.findBySensorId(id));
+       List<AlarmaEntity> x = persistence.all();
+        List<AlarmaEntity> z=new ArrayList();
+        for(AlarmaEntity e:x)
+        {
+            if(e.getIdSensor().equals(id))
+            z.add(e);
+        }
+        return CONVERTER.listEntitiesToListDTOs(z);
     }
 
     

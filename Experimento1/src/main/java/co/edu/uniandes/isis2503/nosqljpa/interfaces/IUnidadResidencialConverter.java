@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public interface IUnidadResidencialConverter {
     public UnidadResidencialDTO entityToDto(UnidadResidencialEntity entity);

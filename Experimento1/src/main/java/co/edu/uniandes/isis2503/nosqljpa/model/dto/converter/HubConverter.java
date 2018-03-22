@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class HubConverter implements IHubConverter{
     public static IHubConverter CONVERTER = new HubConverter();
@@ -44,6 +44,7 @@ public class HubConverter implements IHubConverter{
         dto.setId(entity.getId());
         dto.setMaxChecksPermitidos(entity.getMaxChecksPermitidos());
         dto.setUnidadesResidenciales(entity.getUnidadesResidenciales());
+        dto.setActivado(entity.getActivado());
         return dto;
     }
 
@@ -53,6 +54,7 @@ public class HubConverter implements IHubConverter{
         entity.setId(dto.getId());
         entity.setMaxChecksPermitidos(dto.getMaxChecksPermitidos());
         entity.setUnidadesResidenciales(dto.getUnidadesResidenciales());
+        entity.setActivado(dto.getActivado());
         return entity;
     }
 

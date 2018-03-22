@@ -31,7 +31,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 /**
  *
- * @author f.posada
+ * @author loscache
  */
 @Entity
 @Table(name = "Hub")

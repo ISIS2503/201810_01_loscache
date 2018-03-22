@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class InmuebleConverter implements IInmuebleConverter{
     

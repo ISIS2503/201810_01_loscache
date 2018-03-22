@@ -1,6 +1,5 @@
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\logic\AlarmaLogic.java
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\model\entity\UnidadResidencialEntity.java
-C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\service\SensorService.java
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\logic\InmuebleLogic.java
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\logic\HubLogic.java
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\model\dto\converter\AlarmaConverter.java
@@ -38,4 +37,3 @@ C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\u
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\interfaces\IUnidadResidencialConverter.java
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\interfaces\IInmuebleLogic.java
 C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\model\dto\model\HubDTO.java
-C:\Users\f.posada\Documents\NetBeansProjects\Experimento1\src\main\java\co\edu\uniandes\isis2503\nosqljpa\service\RoomService.java

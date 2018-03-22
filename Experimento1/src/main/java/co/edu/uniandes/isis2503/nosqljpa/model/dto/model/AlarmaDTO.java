@@ -26,7 +26,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
- * @author f.posada
+ * @author loscache
  */
 @XmlRootElement
 public class AlarmaDTO {

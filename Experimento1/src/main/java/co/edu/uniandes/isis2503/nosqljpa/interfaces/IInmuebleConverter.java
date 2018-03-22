@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public interface IInmuebleConverter {
     public InmuebleDTO entityToDto(InmuebleEntity entity);

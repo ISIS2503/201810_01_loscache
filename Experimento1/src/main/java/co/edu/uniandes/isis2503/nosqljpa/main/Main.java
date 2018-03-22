@@ -28,10 +28,7 @@ import java.util.logging.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
-/**
- *
- * @author Luis Felipe Mendivelso Osorio <lf.mendivelso10@uniandes.edu.co>
- */
+
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class.getName());
 

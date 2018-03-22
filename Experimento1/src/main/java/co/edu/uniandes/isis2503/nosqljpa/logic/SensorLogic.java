@@ -36,7 +36,7 @@ import java.util.UUID;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class SensorLogic implements ISensorLogic {
 

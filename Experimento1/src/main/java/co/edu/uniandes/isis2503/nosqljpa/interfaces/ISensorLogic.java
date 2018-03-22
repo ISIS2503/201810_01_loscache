@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public interface ISensorLogic {
     public SensorDTO add(SensorDTO dto, String idIn);

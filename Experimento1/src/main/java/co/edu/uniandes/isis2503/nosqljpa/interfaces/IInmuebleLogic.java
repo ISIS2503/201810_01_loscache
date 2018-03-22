@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public interface IInmuebleLogic {
     public InmuebleDTO add(InmuebleDTO dto, String idU);

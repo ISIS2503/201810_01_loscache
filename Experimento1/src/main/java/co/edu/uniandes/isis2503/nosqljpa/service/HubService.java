@@ -72,14 +72,19 @@ public class HubService {
 
     @GET
     public List<HubDTO> allHubs(@PathParam("idAcceso") String idAc) throws Exception {
-        
-            return hubLogic.all();
-        
+if (!idAc.equalsIgnoreCase("Yale")) {
+            throw new Exception("Solo un administrador de Yale puede manipular los Hubs");
+        } else 
+        return hubLogic.all();
+
     }
 
     @GET
     @Path("/{id}")
-    public HubDTO findHub(@PathParam("idAcceso") String idAc, @PathParam("id") String id) {
+    public HubDTO findHub(@PathParam("idAcceso") String idAc, @PathParam("id") String id) throws Exception {
+        if (!idAc.equalsIgnoreCase("Yale")) {
+            throw new Exception("Solo un administrador de Yale puede manipular los Hubs");
+        } else 
         return hubLogic.find(id);
     }
 
@@ -103,16 +108,15 @@ public class HubService {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteHub(@PathParam("idAcceso") String idAc, @PathParam("id") String id) throws Exception {
-        if (!idAc.equalsIgnoreCase("Yale")) {
+    public HubDTO deleteHub(@PathParam("idAcceso") String idAc, @PathParam("id") String id) throws Exception {
+        if (!idAc.equalsIgnoreCase("Yale")) {   
             throw new Exception("Solo un administrador de Yale puede manipular los Hubs");
         } else {
             try {
-                hubLogic.delete(id);
-                return Response.status(200).header("Access-Control-Allow-Origin", "*").entity("Sucessful: Hub was deleted").build();
+                return hubLogic.delete(id);
             } catch (Exception e) {
                 Logger.getLogger(HubService.class).log(Level.WARNING, e.getMessage());
-                return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
+                return null;
             }
         }
     }
@@ -133,8 +137,8 @@ public class HubService {
         if (!idAc.equalsIgnoreCase("Yale")) {
             throw new Exception("Solo un administrador de Yale puede agregar nuevas unidades residenciales");
         } else {
-        List<UnidadResidencialDTO> result = uniResLogic.allDeUnHub(idH);
-        return result;
+            List<UnidadResidencialDTO> result = uniResLogic.allDeUnHub(idH);
+            return result;
         }
     }
 
@@ -172,16 +176,15 @@ public class HubService {
 
     @DELETE
     @Path("{idHub}/unidadesResidenciales/{idUn}")
-    public Response deleteUniRes(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU) throws Exception {
+    public UnidadResidencialDTO deleteUniRes(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU) throws Exception {
         if (!idAc.equalsIgnoreCase("Yale")) {
             throw new Exception("Solo un administrador de Yale puede eliminar una unidad residencial");
         } else {
             try {
-                uniResLogic.delete(idU);
-                return Response.status(200).header("Access-Control-Allow-Origin", "*").entity("Sucessful: Unidad Residencial was deleted").build();
+                return uniResLogic.delete(idU);
             } catch (Exception e) {
                 Logger.getLogger(HubService.class).log(Level.WARNING, e.getMessage());
-                return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
+                return null;
             }
         }
     }
@@ -247,7 +250,7 @@ public class HubService {
 
     @DELETE
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idI}")
-    public Response deleteInmueble(@PathParam("idAcceso") String idAc, @PathParam("idI") String idU) throws Exception {
+    public InmuebleDTO deleteInmueble(@PathParam("idAcceso") String idAc, @PathParam("idI") String idU) throws Exception {
         InmuebleDTO result = inmuebleLogic.find(idU);
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
@@ -258,11 +261,10 @@ public class HubService {
         }
 
         try {
-            inmuebleLogic.delete(idU);
-            return Response.status(200).header("Access-Control-Allow-Origin", "*").entity("Sucessful: Unidad Residencial was deleted").build();
+            return inmuebleLogic.delete(idU);
         } catch (Exception e) {
             Logger.getLogger(HubService.class).log(Level.WARNING, e.getMessage());
-            return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
+            return null;
         }
     }
 
@@ -355,10 +357,11 @@ public class HubService {
 
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
-                if(!dto.getIdSensor().equals(idS)){
-                if (!result.getPropietario().equalsIgnoreCase(idAc)) {
-                    throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información de sensores del inmueble " + result.getId());
-                }}
+                if (!dto.getIdSensor().equals(idS)) {
+                    if (!result.getPropietario().equalsIgnoreCase(idAc)) {
+                        throw new Exception("Sólo la seguridad de la unidad residencial, Yale o el propietario " + result.getPropietario() + " puede acceder a la información de sensores del inmueble " + result.getId());
+                    }
+                }
             }
         }
 
@@ -368,7 +371,7 @@ public class HubService {
     @GET
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas")
     public List<AlarmaDTO> getAlarmas(@PathParam("idAcceso") String idAc, @PathParam("idS") String idS, @PathParam("idU") String idU) throws Exception {
-        
+
         InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
@@ -385,7 +388,7 @@ public class HubService {
     @GET
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas/{idA}")
     public AlarmaDTO getAlarma(@PathParam("idAcceso") String idAc, @PathParam("idA") String idA, @PathParam("idU") String idU) throws Exception {
-          InmuebleDTO result = inmuebleLogic.find(idU);
+        InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
@@ -401,7 +404,7 @@ public class HubService {
     @PUT
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas")
     public AlarmaDTO updateAlarma(@PathParam("idAcceso") String idAc, AlarmaDTO dto, @PathParam("idU") String idU) throws Exception {
-       InmuebleDTO result = inmuebleLogic.find(idU);
+        InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
             if (!result.getIdUnidad().equalsIgnoreCase(idAc)) {
@@ -416,7 +419,7 @@ public class HubService {
 
     @DELETE
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}/alarmas/{idA}")
-    public Response deleteAlarma(@PathParam("idAcceso") String idAc, @PathParam("idA") String idA, @PathParam("idU") String idU) throws Exception {
+    public AlarmaDTO deleteAlarma(@PathParam("idAcceso") String idAc, @PathParam("idA") String idA, @PathParam("idU") String idU) throws Exception {
         InmuebleDTO result = inmuebleLogic.find(idU);
 
         if (!idAc.equalsIgnoreCase("Yale")) {
@@ -427,11 +430,10 @@ public class HubService {
             }
         }
         try {
-            alarmaLogic.delete(idA);
-            return Response.status(200).header("Access-Control-Allow-Origin", "*").entity("Sucessful: Unidad Residencial was deleted").build();
+            return alarmaLogic.delete(idA);
         } catch (Exception e) {
             Logger.getLogger(HubService.class).log(Level.WARNING, e.getMessage());
-            return Response.status(500).header("Access-Control-Allow-Origin", "*").entity("We found errors in your query, please contact the Web Admin.").build();
+            return null;
         }
     }
 

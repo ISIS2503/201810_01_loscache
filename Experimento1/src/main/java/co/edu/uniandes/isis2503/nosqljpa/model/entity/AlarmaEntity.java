@@ -36,7 +36,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author f.posada
+ * @author loscache
  */
 @Entity
 @Table(name = "ALARMA")

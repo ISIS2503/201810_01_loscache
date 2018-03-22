@@ -36,7 +36,7 @@ import java.util.UUID;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class InmuebleLogic implements IInmuebleLogic {
 
@@ -58,6 +58,7 @@ public class InmuebleLogic implements IInmuebleLogic {
         x.setIdUnidad(idU);
         InmuebleDTO result = CONVERTER.entityToDto(persistence.add(x));
         UnidadResidencialEntity h=perUn.find(idU);
+        System.out.println("a ver");
         List<String> z=h.getInmuebles();
         z.add(dto.getId());
         h.setInmuebles(z);

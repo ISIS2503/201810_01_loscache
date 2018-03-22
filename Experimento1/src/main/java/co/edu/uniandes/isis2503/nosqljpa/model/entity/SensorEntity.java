@@ -34,7 +34,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 @Entity
 @Table(name = "SENSOR")

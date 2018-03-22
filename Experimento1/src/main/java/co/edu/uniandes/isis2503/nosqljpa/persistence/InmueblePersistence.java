@@ -27,7 +27,7 @@ import co.edu.uniandes.isis2503.nosqljpa.model.entity.InmuebleEntity;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class InmueblePersistence extends Persistencer<InmuebleEntity, String>{
 

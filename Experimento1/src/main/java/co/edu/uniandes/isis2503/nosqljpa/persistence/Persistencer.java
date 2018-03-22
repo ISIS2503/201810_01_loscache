@@ -37,12 +37,6 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import org.hibernate.Criteria;
 
-/**
- *
- * @author Luis Felipe Mendivelso Osorio <lf.mendivelso10@uniandes.edu.co>
- * @param <T>
- * @param <PK>
- */
 public class Persistencer<T, PK> {
 
     private static final Logger LOG = Logger.getLogger(Persistencer.class.getName());

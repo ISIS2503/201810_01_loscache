@@ -27,7 +27,7 @@ import co.edu.uniandes.isis2503.nosqljpa.model.entity.UnidadResidencialEntity;
 
 /**
  *
- * @author ca.mendoza968
+ * @author loscache
  */
 public class UnidadResidencialPersistence extends Persistencer<UnidadResidencialEntity, String>{
 
