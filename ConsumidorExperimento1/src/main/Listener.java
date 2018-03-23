@@ -8,8 +8,17 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
- * Este programa se apoya en el código realizado por el usuario m2mlO-gister, ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
+ * Este programa se apoya en el cÃ³digo realizado por el usuario m2mlO-gister, ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
  * @author Los cache
  *
  */
@@ -77,9 +86,56 @@ public class Listener implements MqttCallback {
 
     	if(message.toString().equals(""))
     		return;
-    	else {
-        System.out.println("Topico: " + topic);
-        System.out.println("Mensaje: " + message.toString());}
+    	else { //http://localhost:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes/inmuebles/Inmueble1/sensores/sensor1/alarmas
+
+    		String m = message.toString();
+    		if(m.indexOf("ALERTA")!=-1)
+    		{
+    			try {
+    				
+    				String[] myMensaje=m.split(";");
+
+    				URL url = new URL("http://172.24.42.43:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes/inmuebles/Inmueble1/sensores/sensor1/alarmas");
+    				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    				conn.setDoOutput(true);
+    				conn.setRequestMethod("POST");
+    				conn.setRequestProperty("Content-Type", "application/json");
+
+    				String input = "{\"mensaje\":\""+myMensaje[1]+"\",\"correo\":\""+myMensaje[1]+"\"";
+
+    				OutputStream os = conn.getOutputStream();
+    				os.write(input.getBytes());
+    				os.flush();
+
+    				if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+    					throw new RuntimeException("Failed : HTTP error code : "
+    						+ conn.getResponseCode());
+    				}
+
+    				BufferedReader br = new BufferedReader(new InputStreamReader(
+    						(conn.getInputStream())));
+
+    				String output;
+    				System.out.println("Output from Server .... \n");
+    				while ((output = br.readLine()) != null) {
+    					System.out.println(output);
+    				}
+
+    				conn.disconnect();
+
+    			  } catch (MalformedURLException e) {
+
+    				e.printStackTrace();
+
+    			  } catch (IOException e) {
+
+    				e.printStackTrace();
+
+    			 }
+    			
+
+    		}
+    	}
     }
 
 }
