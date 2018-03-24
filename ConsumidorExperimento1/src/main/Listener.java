@@ -1,4 +1,5 @@
 
+
 package main;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -31,7 +32,7 @@ public class Listener implements MqttCallback {
     private static final String clientId = "Consumidor";
 
     /** Nombre del topico */
-    private static final String topico = "Alertas";
+    private static final String topico = "Yale.Hub1.UniRes1.Inmueble1.Sensor1";
 
    
     public static void main(String[] args) {
@@ -74,6 +75,7 @@ public class Listener implements MqttCallback {
 
     
     public void connectionLost(Throwable arg0) {
+    	arg0.printStackTrace();
     	System.out.println("Conexion perdida");
 
     }
@@ -93,21 +95,21 @@ public class Listener implements MqttCallback {
     		{
     			try {
     				
-    				String[] myMensaje=m.split(";");
+    				//String[] myMensaje=m.split(";");
 
-    				URL url = new URL("http://172.24.42.43:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes/inmuebles/Inmueble1/sensores/sensor1/alarmas");
+    				URL url = new URL("http://172.24.42.43:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes/inmuebles/Inmueble1/sensores/Sensor1/alarmas");
     				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     				conn.setDoOutput(true);
     				conn.setRequestMethod("POST");
     				conn.setRequestProperty("Content-Type", "application/json");
 
-    				String input = "{\"mensaje\":\""+myMensaje[1]+"\",\"correo\":\""+myMensaje[0]+"\"";
+    				String input = "{\"mensaje\":\""+m+"\"}";
 
     				OutputStream os = conn.getOutputStream();
     				os.write(input.getBytes());
     				os.flush();
 
-    				if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+    				if (conn.getResponseCode() != 200 && conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
     					throw new RuntimeException("Failed : HTTP error code : "
     						+ conn.getResponseCode());
     				}
