@@ -101,7 +101,7 @@ public class Listener implements MqttCallback {
     				conn.setRequestMethod("POST");
     				conn.setRequestProperty("Content-Type", "application/json");
 
-    				String input = "{\"mensaje\":\""+myMensaje[1]+"\",\"correo\":\""+myMensaje[1]+"\"";
+    				String input = "{\"mensaje\":\""+myMensaje[1]+"\",\"correo\":\""+myMensaje[0]+"\"";
 
     				OutputStream os = conn.getOutputStream();
     				os.write(input.getBytes());
