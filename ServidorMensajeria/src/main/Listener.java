@@ -24,6 +24,10 @@ public class Listener implements MqttCallback {
     private static final String clientId = "Consumidor";
 
     private static final String topic = "Yale.Hub1.UniRes1.Inmueble1.Sensor1";
+    
+    private int numMensajes=0;
+    
+    private int tiempoTotal=0;
 
     /**
      * The main method.
@@ -96,6 +100,8 @@ public class Listener implements MqttCallback {
     {
     	 try {
     		 
+    		 numMensajes++;
+    		 
     		 String m=me.toString();
 
     			URL url = new URL("http://172.24.42.84:8085/correos");
@@ -110,11 +116,21 @@ public class Listener implements MqttCallback {
     			OutputStream os = conn.getOutputStream();
     			os.write(input.getBytes());
     			os.flush();
+    			
+    			Long a=System.currentTimeMillis();
 
     			if (conn.getResponseCode() != 200) {
     				throw new RuntimeException("Failed : HTTP error code : "
     					+ conn.getResponseCode());
     			}
+    			
+    			Long b=System.currentTimeMillis();
+    			
+    			Long c=b-a;
+    			tiempoTotal+=c;
+    			int promedio=tiempoTotal/numMensajes;
+    			
+    			System.out.println("Tiempo promedio a "+numMensajes+" mensajes es : "+promedio);
 
     			BufferedReader br = new BufferedReader(new InputStreamReader(
     					(conn.getInputStream())));
@@ -124,7 +140,6 @@ public class Listener implements MqttCallback {
     			while ((output = br.readLine()) != null) {
     				System.out.println(output);
     			}
-
     			conn.disconnect();
 
     		  } catch (MalformedURLException e) {
