@@ -1,5 +1,3 @@
-
-
 package main;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -26,10 +24,10 @@ import java.net.URL;
 public class Listener implements MqttCallback {
 
     /** Url del mosquitto */
-    private static final String brokerUrl = "tcp://172.24.42.43:8083";
+    private static final String brokerUrl = "tcp://172.24.42.96:8083";
 
     /** Id del cliente */
-    private static final String clientId = "Consumidor";
+    private static final String clientId = "Persistencia";
 
     /** Nombre del topico */
     private static final String topico = "Yale.Hub1.UniRes1.Inmueble1.Sensor1";
