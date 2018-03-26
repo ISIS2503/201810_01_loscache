@@ -88,7 +88,7 @@ public class Listener implements MqttCallback {
 
     	if(message.toString().equals(""))
     		return;
-    	else { //http://localhost:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes/inmuebles/Inmueble1/sensores/sensor1/alarmas
+    	else { 
 
     		String m = message.toString();
     		if(m.indexOf("ALERTA")!=-1)
@@ -97,7 +97,7 @@ public class Listener implements MqttCallback {
     				
     				//String[] myMensaje=m.split(";");
 
-    				URL url = new URL("http://172.24.42.43:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes/inmuebles/Inmueble1/sensores/Sensor1/alarmas");
+    				URL url = new URL("http://172.24.42.43:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes1/inmuebles/Inmueble1/sensores/Sensor1/alarmas");
     				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     				conn.setDoOutput(true);
     				conn.setRequestMethod("POST");
