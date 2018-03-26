@@ -1,5 +1,12 @@
 #include <Keypad.h>
 
+/*
+*FINAL
+*/
+#define SIZE_BUFFER_DATA       50
+boolean     stringComplete = false;
+String      inputString = "";
+char        bufferData [SIZE_BUFFER_DATA];
 
 /*
 *  KEYPAD
@@ -89,7 +96,8 @@ boolean buttonState;
 
 //Current time when the button is tapped
 long currTime;
-
+long currTimeLowBattery;
+long currTimeSound;
 
 
 /*
@@ -101,6 +109,35 @@ int pirPin = 14;             // choose the input pin (for PIR sensor)
 int pirValue;                   // variable for reading the pin status
 int pirState = LOW;
 
+
+
+/*
+*  BATERRY
+ */
+
+//Minimum voltage required for an alert
+const double MIN_VOLTAGE = 1.2;
+
+//Battery measure pin
+const int BATTERY_PIN = 24;
+
+//Battery indicator
+const int BATTERY_LED = 16;
+
+//Current battery charge
+double batteryCharge;
+
+//Low battery
+boolean lowBattery = false;
+
+/*
+* BUZZER
+ */
+
+//BUZZER pin
+const int BUZZER_PIN = 17;
+
+boolean sound = false;
 
 /*
 * SET UP
@@ -132,6 +169,22 @@ void setup() {
 
   pinMode(ledPin, OUTPUT);      // declare LED as output
   pinMode(pirPin, INPUT);     // declare sensor as input
+
+
+  /*
+  * BATTERY
+   */
+  // Ouput pin definition for BATTERY_LED
+  pinMode(BATTERY_LED,OUTPUT);
+
+  //Input pin definition for battery measure
+  pinMode(BATTERY_PIN,INPUT);
+
+  /*
+  * BUZZER
+   */
+
+  pinMode(BUZZER_PIN,OUTPUT);
 
   Serial.begin(9600);
 }
@@ -279,7 +332,45 @@ void loop() {
       pirState = LOW;
     }
   }
-  
+
+  /*
+  * BATTERY
+   */
+  //Value conversion from digital to voltage
+  batteryCharge = (analogRead(BATTERY_PIN)*5.4)/1024;
+
+  //Measured value comparison with min voltage required
+  if(batteryCharge<=MIN_VOLTAGE ) {
+    Serial.println((millis()-currTimeLowBattery));
+
+    if(!lowBattery) {
+
+      currTimeLowBattery = millis(); 
+      lowBattery = true;
+      digitalWrite(BATTERY_LED,HIGH);
+      Serial.println("LOW BATTERY");
+      delay(200);
+    }
+  }
+  else {
+    digitalWrite(BATTERY_LED,LOW);
+    lowBattery = false;
+    analogWrite(BUZZER_PIN, 0);  
+    sound = false;
+  }
+
+  if((millis()-currTimeLowBattery)>=5000 && !sound && lowBattery) {
+    analogWrite(BUZZER_PIN, 255);  
+    currTimeSound = millis();  
+    sound =true;
+  }
+  if((millis()-currTimeSound)>=2000 && sound && lowBattery)
+  {  
+    analogWrite(BUZZER_PIN, 0);  
+    currTimeSound = millis();
+    sound = false;      
+    currTimeLowBattery = millis();
+  }
 }
 
 /*
@@ -291,5 +382,28 @@ void setColor(int redValue, int greenValue, int blueValue) {
   analogWrite(R_LED_PIN, redValue);
   analogWrite(G_LED_PIN, greenValue);
   analogWrite(B_LED_PIN, blueValue);
+}
+
+/*
+* METHODS FINAL
+*/
+
+void receiveData() {
+  while (Serial.available()) {
+    // get the new byte:
+    char inChar = (char)Serial.read();
+    // add it to the inputString:
+    inputString += inChar;
+    if (inChar == '\n') {
+      inputString.toCharArray(bufferData, SIZE_BUFFER_DATA);
+      stringComplete = true;
+    }
+  }
+}
+ 
+void processData() {
+  if (stringComplete) {
+    // Implementación...
+  }
 }
 
