@@ -2,24 +2,11 @@
 #include <ESP8266WiFi.h>
 
 //DEFINES
-#define SUBSCRIBE1        "unires1.inmueble1.sensor.config"
-#define PUBLISH1          "unires1.inmueble1.sensor"
-
-#define SUBSCRIBE2        "unires2.inmueble2.sensor.config"
-#define PUBLISH2          "unires2.inmueble2.sensor"
-
-#define SUBSCRIBE3        "unires3.inmueble3.sensor.config"
-#define PUBLISH3          "unires3.inmueble3.sensor"
-
-#define SUBSCRIBE4        "unires4.inmueble4.sensor.config"
-#define PUBLISH4          "unires4.inmueble4.sensor"
+#define TOPIC_SUBSCRIBE        "unirest1.inmueble1.sensor1.config"
+#define TOPIC_PUBLISH          "unirest1.inmueble1.sensor1"
 
 #define SIZE_BUFFER_DATA       50
 
-//VARIABLES
-
-#define SUBSCRIBE0  "unires0.inmueble0.sensor.config"
-#define PUBLISH0 "unires0.inmueble0.sensor"
 
 
 int alarma = 0;
@@ -39,7 +26,7 @@ const char* ssid = "isis2503";
 const char* password = "Yale2018.";
 
 // CONFIG MQTT
-IPAddress serverMQTT (172,24,44,76);
+IPAddress serverMQTT (172,24,41,200);
 const uint16_t portMQTT = 8083;
 // const char* usernameMQTT = "admin";
 // const char* passwordMQTT = "admin";
@@ -107,57 +94,17 @@ void processData() {
       }
 
       if(conectMQTT) {
-        if(alarma==0){ 
-          if(clientMQTT.subscribe(SUBSCRIBE0)) {
-           Serial.println("Subscribe OK");
-          }
-        }else if(alarma==1){
-          if(clientMQTT.subscribe(SUBSCRIBE1)) {
-           Serial.println("Subscribe OK");
-          }
-        }else if(alarma==2){
-          if(clientMQTT.subscribe(SUBSCRIBE2)) {
-           Serial.println("Subscribe OK");
-          }
-        }else if(alarma==3){
-          if(clientMQTT.subscribe(SUBSCRIBE3)) {
-           Serial.println("Subscribe OK");
-          }
-        }else if(alarma==4){
-          if(clientMQTT.subscribe(SUBSCRIBE4)) {
-           Serial.println("Subscribe OK");
-          }
+        if(clientMQTT.subscribe(TOPIC_SUBSCRIBE)) {
+          // Serial.println("Subscribe OK");
         }
       }
     }
 
     if (stringComplete && clientMQTT.connected()) {
-      if(alarma==0){ 
-          if(clientMQTT.publish(PUBLISH0, bufferData)) {
-            inputString = "";
-            stringComplete = false;
-          }
-        }else if(alarma==1){
-          if(clientMQTT.publish(PUBLISH1, bufferData)) {
-            inputString = "";
-            stringComplete = false;
-          }
-        }else if(alarma==2){
-          if(clientMQTT.publish(PUBLISH2, bufferData)) {
-            inputString = "";
-            stringComplete = false;
-          }
-        }else if(alarma==3){
-          if(clientMQTT.publish(PUBLISH3, bufferData)) {
-            inputString = "";
-            stringComplete = false;
-          }
-        }else if(alarma==4){
-          if(clientMQTT.publish(PUBLISH4, bufferData)) {
-            inputString = "";
-            stringComplete = false;
-          }
-        }
+      if(clientMQTT.publish(TOPIC_PUBLISH, bufferData)) {
+        inputString = "";
+        stringComplete = false;
+      }
       init_flag = false;
     }
   }
