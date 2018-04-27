@@ -1,4 +1,10 @@
+ATENCION: La declaracion de esfuerzo es la misma que la usada en el experimento 1!
+
+
+
 En la carpeta docs, se encuentra la documentación para esta entrega.
+
+
 
 Proyectos Java:
 ConsumidorExperimento1: Contiene el programa que maneja las solicitudes REST para persistir las alertas en el servicio REST.
