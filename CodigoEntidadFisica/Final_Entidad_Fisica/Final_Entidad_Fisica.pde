@@ -1,28 +1,33 @@
 #include <Keypad.h>
 #include <EEPROM.h>
+#include <string.h>
 
 /*
-*FINAL
+  FINAL
 */
 #define SIZE_BUFFER_DATA       50
 boolean     stringComplete = false;
 String      inputString = "";
 char        bufferData [SIZE_BUFFER_DATA];
 
-/*
-*  KEYPAD
- */
-//Specified password
-const String KEY1 = "1234";
-const String KEY2 = "9876";
-const String KEY3 = "4567";
-const String KEY4 = "7890";
+String firstVal = "";
+String secondVal = "";
+boolean validEntry;
+
+
+
+const String ADD_PASSWORD = "ADD_PASSWORD";
+const String UPDATE_PASSWORD = "UPDATE_PASSWORD";
+const String DELETE_PASSWORD = "DELETE_PASSWORD";
+const String DELETE_ALL_PASSWORDS = "DELETE_ALL_PASSWORDS";
+const String COMPARE_PASSWORD = "COMPARE_PASSWORD";
+const String VALID_ENTRY = "VALID_ENTRY";
 
 //Time in milliseconds which the system is locked
 const int LOCK_TIME = 30000;
 
 //Keypad rows
-const byte ROWS = 4; 
+const byte ROWS = 4;
 
 //Keypad columns
 const byte COLS = 3;
@@ -52,7 +57,7 @@ char hexaKeys[ROWS][COLS] = {
 //Keypad row pins definition
 byte rowPins[ROWS] = {
   9, 8, 7, 6
-}; 
+};
 
 //Keypad column pins definition
 byte colPins[COLS] = {
@@ -60,7 +65,7 @@ byte colPins[COLS] = {
 };
 
 //Keypad library initialization
-Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
+Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
 //Current key variable
 String currentKey;
@@ -77,8 +82,8 @@ boolean block;
 
 
 /*
-*  CONTACT
- */
+   CONTACT
+*/
 //Button pin
 const int CONTACT_PIN = 11;
 
@@ -99,11 +104,12 @@ boolean buttonState;
 long currTime;
 long currTimeLowBattery;
 long currTimeSound;
+long timeTillHeartBeat;
 
 
 /*
- * PIR sensor tester
- */
+   PIR sensor tester
+*/
 
 int ledPin = 15;              // choose the pin for the LED
 int pirPin = 14;             // choose the input pin (for PIR sensor)
@@ -113,8 +119,8 @@ int pirState = LOW;
 
 
 /*
-*  BATERRY
- */
+   BATERRY
+*/
 
 //Minimum voltage required for an alert
 const double MIN_VOLTAGE = 1.2;
@@ -132,8 +138,8 @@ double batteryCharge;
 boolean lowBattery = false;
 
 /*
-* BUZZER
- */
+  BUZZER
+*/
 
 //BUZZER pin
 const int BUZZER_PIN = 17;
@@ -141,27 +147,25 @@ const int BUZZER_PIN = 17;
 boolean sound = false;
 
 /*
-* SET UP
- */
+  SET UP
+*/
 
 
 
 void setup() {
   /* KEYPAD */
-  Serial.begin(9600);
   currentKey = "";
   open = false;
   attempts = 0;
   block = false;
 
   /* CONTACT */
-  Serial.begin(9600);
   buttonState = false;
 
   pinMode(R_LED_PIN, OUTPUT);
   pinMode(G_LED_PIN, OUTPUT);
   pinMode(B_LED_PIN, OUTPUT);
-  pinMode(CONTACT_PIN,INPUT);
+  pinMode(CONTACT_PIN, INPUT);
 
   setColor(0, 0, 255);
 
@@ -173,19 +177,20 @@ void setup() {
 
 
   /*
-  * BATTERY
-   */
+    BATTERY
+  */
   // Ouput pin definition for BATTERY_LED
-  pinMode(BATTERY_LED,OUTPUT);
+  pinMode(BATTERY_LED, OUTPUT);
 
   //Input pin definition for battery measure
-  pinMode(BATTERY_PIN,INPUT);
+  pinMode(BATTERY_PIN, INPUT);
 
   /*
-  * BUZZER
-   */
+    BUZZER
+  */
 
-  pinMode(BUZZER_PIN,OUTPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  timeTillHeartBeat = millis();
 
   Serial.begin(9600);
 }
@@ -193,8 +198,8 @@ void setup() {
 
 
 /*
-* LOOP
- */
+  LOOP
+*/
 
 
 
@@ -202,71 +207,76 @@ void loop() {
 
   /* KEYPAD */
   char customKey;
+  if ((millis() - timeTillHeartBeat) >= 5000)
+  {
+    Serial.println("HB");
+    timeTillHeartBeat = millis();
+  }
 
-  if(!block) {
+  if (!block) {
     //Selected key parsed;
     customKey = customKeypad.getKey();
   }
   else {
-    Serial.println("Number of attempts exceeded");
-    while(true);
+    //Serial.println("Number of attempts exceeded");
+    while (true);
   }
 
   //Verification of input and appended value
-  if (customKey) {  
-    currentKey+=String(customKey);
-    Serial.println(currentKey);
+  if (customKey) {
+    currentKey += String(customKey);
+    //Serial.println(currentKey);
 
-    if (currentKey.length()== KEY1.length()) {
-      if(currentKey == KEY1 || currentKey == KEY2 ||currentKey == KEY3 ||currentKey == KEY4) {
+    if (currentKey.length() == 4) {
+      if (compareKey(currentKey)) {
         currTime = millis();
       }
     }
   }
 
   //If the current key contains '*' and door is open
-  if(openByKey && currentKey.endsWith("*")) {
+  if (openByKey && currentKey.endsWith("*")) {
     setColor(0, 0, 255);
     open = false;
     openByKey = false;
-    Serial.println("Door closed");
+    //Serial.println("Door closed");
     //digitalWrite(10,LOW);
     currentKey = "";
   }
   //If the current key contains '#' reset attempt
-  if(currentKey.endsWith("#")&&currentKey.length()<=KEY1.length()) {
+  if (currentKey.endsWith("#") && currentKey.length() <= 4) {
     currentKey = "";
     Serial.println("Attempt deleted");
   }
 
   //If current key matches the key length
-  if (currentKey.length()== KEY1.length()) {
-    if(currentKey == KEY1 || currentKey == KEY2 ||currentKey == KEY3 ||currentKey == KEY4) {
+  if (currentKey.length() == 4) {
+    if (compareKey(currentKey) && validEntry) {
       open = true;
       openByKey = true;
-      Serial.println("Door opened!!");
-      setColor(0, 255, 0);      
+      //Serial.println("Door opened!!");
+      setColor(0, 255, 0);
       attempts = 0;
     }
     else {
-      attempts++; 
+      attempts++;
 
-      if(attempts != 3)
-      {     
+      if (attempts != 3)
+      {
         setColor(255, 0, 0);
         delay(1000);
         setColor(0, 0, 255);
       }
 
       currentKey = "";
-      Serial.println("Number of attempts: "+String(attempts));
+      //Serial.println("Number of attempts: "+String(attempts));
     }
   }
-  else if(currentKey.length()> KEY1.length()) {
-    setColor(0, 255, 0);    
-    Serial.println("Door opened!!");
+  else if (currentKey.length() > 4) {
+    setColor(0, 255, 0);
+    //Serial.println("Door opened!!");
   }
-  if(attempts>=maxAttempts) {
+  if (attempts >= maxAttempts) {
     currentKey = "";
     attempts = 0;
     Serial.println("System locked");
@@ -277,20 +287,20 @@ void loop() {
   }
 
   /* CONTACT */
-  //Button input read and processing 
-  if(!buttonState) {
-    if(digitalRead(CONTACT_PIN) && !openByKey) {
+  //Button input read and processing
+  if (!buttonState) {
+    if (digitalRead(CONTACT_PIN) && !openByKey) {
       currTime = millis();
       buttonState = true;
       setColor(0, 255, 0);
       open = true;
       attempts = 0;
-      Serial.println("Door opened!!");
+      //Serial.println("Door opened!!");
     }
   }
   else {
-    if(digitalRead(CONTACT_PIN)) {
-      if((millis()-currTime)>=30000) {
+    if (digitalRead(CONTACT_PIN)) {
+      if ((millis() - currTime) >= 30000) {
         setColor(255, 0, 0);
         Serial.println("Door opened too much time");
       }
@@ -300,11 +310,11 @@ void loop() {
       setColor(0, 0, 255);
       open = false;
       buttonState = false;
-      Serial.println("Door closed!!");
+      //Serial.println("Door closed!!");
     }
   }
-  if(openByKey) {
-    if((millis()-currTime)>=30000) {
+  if (openByKey) {
+    if ((millis() - currTime) >= 30000) {
       setColor(255, 0, 0);
       Serial.println("Door opened too much time");
     }
@@ -314,7 +324,7 @@ void loop() {
 
   pirValue = digitalRead(pirPin);
   digitalWrite(ledPin, pirValue);
-  if(pirValue == HIGH)
+  if (pirValue == HIGH)
   {
     if (pirState == LOW) {
       // we have just turned on
@@ -335,48 +345,50 @@ void loop() {
   }
 
   /*
-  * BATTERY
-   */
+    BATTERY
+  */
   //Value conversion from digital to voltage
-  batteryCharge = (analogRead(BATTERY_PIN)*5.4)/1024;
+  batteryCharge = (analogRead(BATTERY_PIN) * 5.4) / 1024;
 
   //Measured value comparison with min voltage required
-  if(batteryCharge<=MIN_VOLTAGE ) {
+  if (batteryCharge <= MIN_VOLTAGE ) {
     //Serial.println((millis()-currTimeLowBattery));
 
-    if(!lowBattery) {
+    if (!lowBattery) {
 
-      currTimeLowBattery = millis(); 
+      currTimeLowBattery = millis();
       lowBattery = true;
-      digitalWrite(BATTERY_LED,HIGH);
+      digitalWrite(BATTERY_LED, HIGH);
       Serial.println("LOW BATTERY");
       delay(200);
     }
   }
   else {
-    digitalWrite(BATTERY_LED,LOW);
+    digitalWrite(BATTERY_LED, LOW);
     lowBattery = false;
-    analogWrite(BUZZER_PIN, 0);  
+    analogWrite(BUZZER_PIN, 0);
     sound = false;
   }
 
-  if((millis()-currTimeLowBattery)>=5000 && !sound && lowBattery) {
-    analogWrite(BUZZER_PIN, 255);  
-    currTimeSound = millis();  
-    sound =true;
-  }
-  if((millis()-currTimeSound)>=2000 && sound && lowBattery)
-  {  
-    analogWrite(BUZZER_PIN, 0);  
+  if ((millis() - currTimeLowBattery) >= 5000 && !sound && lowBattery) {
+    analogWrite(BUZZER_PIN, 255);
     currTimeSound = millis();
-    sound = false;      
+    sound = true;
+  }
+  if ((millis() - currTimeSound) >= 2000 && sound && lowBattery)
+  {
+    analogWrite(BUZZER_PIN, 0);
+    currTimeSound = millis();
+    sound = false;
     currTimeLowBattery = millis();
   }
+  receiveData();
+  processData();
 }
 
 /*
-* CONTACT METHOD
- */
+  CONTACT METHOD
+*/
 
 //Method that outputs the RGB specified color
 void setColor(int redValue, int greenValue, int blueValue) {
@@ -387,111 +399,92 @@ void setColor(int redValue, int greenValue, int blueValue) {
 
 // Method that compares a key with stored keys
 boolean compareKey(String key) {
+  //Serial.println("Se comparará la clave " + key);
   int acc = 3;
-  int codif, arg0, arg1; 
-  for(int i=0; i<3; i++) {
+  int codif, arg0, arg1;
+  for (int i = 0; i < 3; i++) {
     codif = EEPROM.read(i);
-    while(codif!=0) {
-      if(codif%2==1) {
+    while (codif != 0) {
+      if (codif % 2 == 1) {
         arg0 = EEPROM.read(acc);
-        arg1 = EEPROM.read(acc+1)*256;
-        arg1+= arg0;
-        if(String(arg1)==key) {
+        arg1 = EEPROM.read(acc + 1) * 256;
+        arg1 += arg0;
+        if (String(arg1) == key) {
           return true;
         }
       }
-      acc+=2;
-      codif>>=1;
+      acc += 2;
+      codif >>= 1;
     }
-    acc=(i+1)*16+3;
+    acc = (i + 1) * 16 + 3;
   }
   return false;
 }
 
 // Methods that divides the command by parameters
-void processCommand(String* result, String command) {
-  char buf[sizeof(command)];
-  String vars = "";
-  vars.toCharArray(buf, sizeof(buf));
-  char *p = buf;
-  char *str;
-  int i = 0;
-  while ((str = strtok_r(p, ";", &p)) != NULL) {
-    // delimiter is the semicolon
-    result[i++] = str;
+void processCommand(String input) {
+  boolean band = false;
+  for (int i = 0; i < input.length(); i++) {
+    if (input.substring(i, i + 1) == ";") {
+      firstVal = input.substring(0, i);
+      secondVal = input.substring(i + 1);
+      band = true;
+      break;
+    }
   }
-  
-  if(result[0].equals("ADD_PASSWORD"))
-  {
-    //Formato:"ADD_PASSWORD;<idPassword>;<password>"
-    addPassword(result[2].toInt(), result[1].toInt());
-  }
-  else if(result[0].equals("UPDATE_PASSWORD"))
-  {
-    //Formato:"UPDATE_PASSWORD;<idPassword>;<password>"
-    updatePassword(result[2].toInt(), result[1].toInt());
-  }  
-  else if(result[0].equals("DELETE_PASSWORD"))
-  {
-    //Formato:"DELETE_PASSWORD;<id>"
-    deletePassword(result[1].toInt());
-  }
-  else if(result[0].equals("DELETE_ALL_PASSWORDS"))
-  {
-    //Formato:"DELETE_ALL_PASSWORDS"
-    deleteAllPasswords();
-  }
-  else if(result[0].equals("COMPARE_PASSWORD"))
-  {
-    //Formato:"COMPARE_PASSWORD;<password>"
-    compareKey(result[0]);
-  }
+
 }
 
 //Method that adds a password in the specified index
 void addPassword(int val, int index) {
-  byte arg0 = val%256;
-  byte arg1 = val/256;
-  EEPROM.write((index*2)+3,arg0);
-  EEPROM.write((index*2)+4,arg1);
+  Serial.println("Se agregará la clave");
+  byte arg0 = val % 256;
+  byte arg1 = val / 256;
+  EEPROM.write((index * 2) + 3, arg0);
+  EEPROM.write((index * 2) + 4, arg1);
   byte i = 1;
-  byte location = index/8;
-  byte position = index%8;
-  i<<=position;
+  byte location = index / 8;
+  byte position = index % 8;
+  i <<= position;
   byte j = EEPROM.read(location);
   j |= i;
-  EEPROM.write(location,j);
+  EEPROM.write(location, j);
 }
 
 //Method that updates a password in the specified index
 void updatePassword(int val, int index) {
-  byte arg0 = val%256;
-  byte arg1 = val/256;
-  EEPROM.write((index*2)+3,arg0);
-  EEPROM.write((index*2)+4,arg1);
+  Serial.println("Se actualizará la clave");
+  byte arg0 = val % 256;
+  byte arg1 = val / 256;
+  EEPROM.write((index * 2) + 3, arg0);
+  EEPROM.write((index * 2) + 4, arg1);
 }
 
 //Method that deletes a password in the specified index
 void deletePassword(int index) {
+  char s[4];//nice and big so no buffer overflow
+  sprintf(s, "%d", index);
+  Serial.println("Se borrará la clave");
   byte i = 1;
-  byte location = index/8;
-  byte position = index%8;
-  i<<=position;
+  byte location = index / 8;
+  byte position = index % 8;
+  i <<= position;
   byte j = EEPROM.read(location);
   j ^= i;
-  EEPROM.write(location,j);
+  EEPROM.write(location, j);
 }
 
 //Method that deletes all passwords
 void deleteAllPasswords() {
   //Password reference to inactive
-  EEPROM.write(0,0);
-  EEPROM.write(1,0);
-  EEPROM.write(2,0);
+  Serial.println("Se borrarán todas las claves");
+  EEPROM.write(0, 0);
+  EEPROM.write(1, 0);
+  EEPROM.write(2, 0);
 }
 
 /*
-* METHODS FINAL
+  METHODS FINAL
 */
 
 void receiveData() {
@@ -506,10 +499,53 @@ void receiveData() {
     }
   }
 }
- 
+
 void processData() {
   if (stringComplete) {
-    String* string;
-	  processCommand(string, inputString);
+    processCommand(inputString);
+    //Serial.println(firstVal);
+
+    if (firstVal == ADD_PASSWORD)
+    {
+      //Formato:"ADD_PASSWORD;<idPassword>;<password>"
+
+      processCommand(secondVal);
+      addPassword(secondVal.toInt(), firstVal.toInt());
+    }
+    else if (firstVal == UPDATE_PASSWORD)
+    {
+      //Formato:"UPDATE_PASSWORD;<idPassword>;<password>"
+      processCommand(secondVal);
+      updatePassword(secondVal.toInt(), firstVal.toInt());
+    }
+    else if (firstVal == DELETE_PASSWORD)
+    {
+      //Formato:"DELETE_PASSWORD;<id>"
+      deletePassword(secondVal.toInt());
+    }
+    else if (firstVal == DELETE_ALL_PASSWORDS)
+    {
+      //Formato:"DELETE_ALL_PASSWORDS"
+      deleteAllPasswords();
+    }
+    else if (firstVal == COMPARE_PASSWORD)
+    {
+      //Formato:"COMPARE_PASSWORD;<password>"
+      processCommand(secondVal);
+      compareKey(firstVal);
+    }
+    else if(firstVal == VALID_ENTRY)
+    {
+      if(secondVal == "Y")
+      {
+        validEntry = true;
+      }
+      else if(secondVal == "N")
+      {
+        validEntry = false;
+      }
+    }
+    inputString = "";
+    stringComplete = false;
   }
 }
