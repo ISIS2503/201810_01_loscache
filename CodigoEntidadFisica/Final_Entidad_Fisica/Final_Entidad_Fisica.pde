@@ -79,6 +79,7 @@ byte attempts;
 //If the number of current attempts exceeds the maximum allowed
 boolean block;
 
+boolean keyRegistered;
 
 
 /*
@@ -242,6 +243,7 @@ void loop() {
     //Serial.println("Door closed");
     //digitalWrite(10,LOW);
     currentKey = "";
+	keyRegistered = false;
   }
   //If the current key contains '#' reset attempt
   if (currentKey.endsWith("#") && currentKey.length() <= 4) {
@@ -249,32 +251,31 @@ void loop() {
     Serial.println("Attempt deleted");
   }
 
-  //If current key matches the key length
-  if (currentKey.length() == 4) {
-    if (compareKey(currentKey) && validEntry) {
-      open = true;
-      openByKey = true;
-      //Serial.println("Door opened!!");
-      setColor(0, 255, 0);
-      attempts = 0;
-    }
-    else {
-      attempts++;
-
-      if (attempts != 3)
-      {
-        setColor(255, 0, 0);
-        delay(1000);
-        setColor(0, 0, 255);
-      }
-
-      currentKey = "";
-      //Serial.println("Number of attempts: "+String(attempts));
-    }
+  //If current key matches the key length and is saved at EEPROM
+  if (compareKey(currentKey) && currentKey.length() == 4) {
+    Serial.print("VALID_ENTRY;");
+    Serial.println(currentKey);
+    keyRegistered = true;
   }
-  else if (currentKey.length() > 4) {
-    setColor(0, 255, 0);
+  if (validEntry && keyRegistered) {
+    open = true;
+    openByKey = true;
     //Serial.println("Door opened!!");
+    setColor(0, 255, 0);
+    attempts = 0;
+  }
+  else {
+    attempts++;
+
+    if (attempts != 3)
+    {
+      setColor(255, 0, 0);
+      delay(1000);
+      setColor(0, 0, 255);
+    }
+
+    currentKey = "";
+    //Serial.println("Number of attempts: "+String(attempts));
   }
   if (attempts >= maxAttempts) {
     currentKey = "";
@@ -534,13 +535,13 @@ void processData() {
       processCommand(secondVal);
       compareKey(firstVal);
     }
-    else if(firstVal == VALID_ENTRY)
+    else if (firstVal == VALID_ENTRY)
     {
-      if(secondVal == "Y")
+      if (secondVal == "Y")
       {
         validEntry = true;
       }
-      else if(secondVal == "N")
+      else if (secondVal == "N")
       {
         validEntry = false;
       }
