@@ -48,6 +48,7 @@ public class UnidadResidencialConverter implements IUnidadResidencialConverter{
         dto.setInmuebles(entity.getInmuebles());
         dto.setName(entity.getName());
         dto.setIdHub(entity.getIdHub());
+        dto.setBarrio(entity.getBarrio());
         return dto;
     }
 
@@ -59,6 +60,8 @@ public class UnidadResidencialConverter implements IUnidadResidencialConverter{
         entity.setName(dto.getName());
         entity.setInmuebles(dto.getInmuebles());
         entity.setIdHub(dto.getIdHub());
+        entity.setBarrio(dto.getBarrio());
+
         return entity;
     }
 

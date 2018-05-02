@@ -22,75 +22,43 @@
  * THE SOFTWARE.
  */
 package co.edu.uniandes.isis2503.nosqljpa.model.dto.model;
-import java.util.Date;
-import javax.xml.bind.annotation.XmlRootElement;
+
+import java.util.ArrayList;
+
 /**
  *
- * @author loscache
+ * @author f.posada
  */
-@XmlRootElement
-public class AlarmaDTO {
-    private String id;
+public class AlarmaMensualDTO {
     
-    private String mensaje;
+    private int mes;
     
-    private String fecha;
+    private ArrayList<String> alarmas;
     
-    private int activado;
-    
-    private String idSensor;
-    
-    public AlarmaDTO()
+    public AlarmaMensualDTO()
     {
-        this.activado=1;
+        alarmas=new ArrayList<String>();
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public ArrayList<String> getAlarmas() {
+        return alarmas;
+    }
+
+    public void setAlarmas(ArrayList<String> alarmas) {
+        this.alarmas = alarmas;
     }
     
-    public AlarmaDTO(String i, String m, String idS)
+    public void addAlarma(String a)
     {
-        this.id=i;
-        this.mensaje=m;
-        this.activado=1;
-        this.idSensor=idS;
-    }
-    
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public int getActivado() {
-        return activado;
-    }
-
-    public void setActivado(int activado) {
-        this.activado = activado;
-    }
-
-    public String getIdSensor() {
-        return idSensor;
-    }
-
-    public void setIdSensor(String idSensor) {
-        this.idSensor = idSensor;
+        this.alarmas.add(a);
     }
     
     

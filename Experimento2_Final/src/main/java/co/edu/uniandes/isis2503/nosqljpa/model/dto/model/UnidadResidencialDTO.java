@@ -46,6 +46,8 @@ public class UnidadResidencialDTO {
     
     private String idHub;
     
+    private String barrio;
+    
     public UnidadResidencialDTO() {
         this.inmuebles = new ArrayList();
         this.activado = 1;
@@ -113,4 +115,14 @@ public class UnidadResidencialDTO {
     public void setIdHub(String idHub) {
         this.idHub = idHub;
     }
+
+    public String getBarrio() {
+        return barrio;
+    }
+
+    public void setBarrio(String barrio) {
+        this.barrio = barrio;
+    }
+    
+    
 }

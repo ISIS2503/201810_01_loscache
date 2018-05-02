@@ -47,6 +47,7 @@ public class AlarmaEntity implements Serializable {
     
     private String mensaje;
     
+    private String fecha;    
        
     private int activado;
     
@@ -97,6 +98,16 @@ public class AlarmaEntity implements Serializable {
     public void setIdSensor(String idSensor) {
         this.idSensor = idSensor;
     }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+    
+    
     
     
     
