@@ -38,9 +38,9 @@ public class SendMail {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("loscache2018@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse("f.posada@uniandes.edu.com"));
+                InternetAddress.parse("f.posada@uniandes.edu.co"));
             message.setSubject("ALERTA");
-            message.setText("CERRADURA FUERA DE LÕNEA. ID DE CERRADURA: "+args);
+            message.setText("CERRADURA FUERA DE L√çNEA. ID DE CERRADURA: "+args);
 
             Transport.send(message);
 
