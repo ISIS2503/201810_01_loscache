@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class Listener implements MqttCallback {
 
     /** Url del mosquitto */
-    private static final String brokerUrl = "tcp://172.24.42.96:8083";
+    private static final String brokerUrl = "tcp://172.24.41.200:8083";
 
     /** Id del cliente */
     private static final String clientId = "Persistencia";
