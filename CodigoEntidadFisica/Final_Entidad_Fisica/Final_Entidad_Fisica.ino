@@ -15,6 +15,7 @@ String secondVal = "";
 boolean validEntry;
 boolean validateEntry;
 boolean registroUnaVez;
+boolean respondeSolicitudEntrada;
 
 
 
@@ -29,6 +30,7 @@ const String NO = "NO";
 
 //Time in milliseconds which the system is locked
 const int LOCK_TIME = 30000;
+const int TIME_BETWEEN_HB = 60000;
 
 //Keypad rows
 const byte ROWS = 4;
@@ -212,11 +214,7 @@ void loop() {
 
   /* KEYPAD */
   char customKey;
-  if ((millis() - timeTillHeartBeat) >= 5000)
-  {
-    Serial.println("HB");
-    timeTillHeartBeat = millis();
-  }
+  heartbeat();
 
   if (!block) {
     //Selected key parsed;
@@ -229,68 +227,68 @@ void loop() {
   }
 
   //Verification of input and appended value
-  if (customKey && currentKey.length() <=3) {
+  if (customKey && currentKey.length() <= 3) {
     currentKey += String(customKey);
     Serial.println(currentKey);
   }
-   if (currentKey.length() == 4) {
-      if (compareKey(currentKey)) {
-        currTime = millis();
-      }
-    }
+  //  if (currentKey.length() == 4) {
+  //    if (compareKey(currentKey)) {
+  //      currTime = millis();
+  //    }
+  //  }
 
   //If the current key contains '*' and door is open
-  if (openByKey && currentKey.endsWith("*")) {
-    setColor(0, 0, 255);
-    open = false;
-    openByKey = false;
-    //Serial.println("Door closed");
-    //digitalWrite(10,LOW);
-    currentKey = "";
-	keyRegistered = false;
-  }
-  //If the current key contains '#' reset attempt
-  if (currentKey.endsWith("#") && currentKey.length() <= 4) {
-    currentKey = "";
-    Serial.println("Attempt deleted");
-  }
-
-  //If current key matches the key length and is saved at EEPROM
-  if (compareKey(currentKey) && currentKey.length() == 4 && !registroUnaVez) {
-    Serial.print("VALID_ENTRY;");
-    Serial.println(currentKey);
-    keyRegistered = true;
-    registroUnaVez= true;
-  }
-  else if (validEntry && keyRegistered) {
-    open = true;
-    openByKey = true;
-    //Serial.println("Door opened!!");
-    setColor(0, 255, 0);
-    attempts = 0;
-  }
-  else if (!compareKey(currentKey) && currentKey.length() == 4) {
-    attempts++;
-
-    if (attempts != 3)
-    {
-      setColor(255, 0, 0);
-      delay(1000);
-      setColor(0, 0, 255);
-    }
-
-    currentKey = "";
-    //Serial.println("Number of attempts: "+String(attempts));
-  }
-  if (attempts >= maxAttempts) {
-    currentKey = "";
-    attempts = 0;
-    Serial.println("System locked");
-    setColor(255, 0, 0);
-    delay(LOCK_TIME);
-    Serial.println("System unlocked");
-    setColor(0, 0, 255);
-  }
+  //  if (openByKey && currentKey.endsWith("*")) {
+  //    setColor(0, 0, 255);
+  //    open = false;
+  //    openByKey = false;
+  //    //Serial.println("Door closed");
+  //    //digitalWrite(10,LOW);
+  //    currentKey = "";
+  //    keyRegistered = false;
+  //  }
+  //  //If the current key contains '#' reset attempt
+  //  if (currentKey.endsWith("#") && currentKey.length() <= 4) {
+  //    currentKey = "";
+  //    Serial.println("Attempt deleted");
+  //  }
+  //
+  //  //If current key matches the key length and is saved at EEPROM
+  //  if (compareKey(currentKey) && currentKey.length() == 4 && !registroUnaVez) {
+  //    Serial.print("VALID_ENTRY;");
+  //    Serial.println(currentKey);
+  //    keyRegistered = true;
+  //    registroUnaVez = true;
+  //  }
+  //  else if (validEntry && keyRegistered) {
+  //    open = true;
+  //    openByKey = true;
+  //    //Serial.println("Door opened!!");
+  //    setColor(0, 255, 0);
+  //    attempts = 0;
+  //  }
+  //  else if (!compareKey(currentKey) && currentKey.length() == 4) {
+  //    attempts++;
+  //
+  //    if (attempts != 3)
+  //    {
+  //      setColor(255, 0, 0);
+  //      delay(1000);
+  //      setColor(0, 0, 255);
+  //    }
+  //
+  //    currentKey = "";
+  //    //Serial.println("Number of attempts: "+String(attempts));
+  //  }
+  //  if (attempts >= maxAttempts) {
+  //    currentKey = "";
+  //    attempts = 0;
+  //    Serial.println("System locked");
+  //    setColor(255, 0, 0);
+  //    delay(LOCK_TIME);
+  //    Serial.println("System unlocked");
+  //    setColor(0, 0, 255);
+  //  }
 
   /* CONTACT */
   //Button input read and processing
@@ -429,12 +427,10 @@ boolean compareKey(String key) {
 
 // Methods that divides the command by parameters
 void processCommand(String input) {
-  boolean band = false;
   for (int i = 0; i < input.length(); i++) {
     if (input.substring(i, i + 1) == ";") {
       firstVal = input.substring(0, i);
       secondVal = input.substring(i + 1);
-      band = true;
       break;
     }
   }
@@ -542,15 +538,16 @@ void processData() {
     }
     else if (firstVal == VALID_ENTRY)
     {
-      Serial.println("Se valida entrada");
-      Serial.println(secondVal);
+      secondVal.trim();
       if (secondVal == SI)
       {
         validEntry = true;
+        respondeSolicitudEntrada = true;
       }
       else if (secondVal == NO)
       {
         validEntry = false;
+        respondeSolicitudEntrada = true;
       }
       Serial.println(validEntry);
       validateEntry = true;
@@ -558,5 +555,82 @@ void processData() {
     }
     inputString = "";
     stringComplete = false;
+  }
+
+  void heartbeat() {
+    if ((millis() - timeTillHeartBeat) >= TIME_BETWEEN_HB)
+    {
+      Serial.println("HB");
+      timeTillHeartBeat = millis();
+    }
+  }
+
+
+  /*
+     Metodo encargado de la interacción con la puerta
+  */
+  void interaccionPuerta()
+  {
+    if (openByKey && currentKey.endsWith("*")) {
+      setColor(0, 0, 255);
+      open = false;
+      openByKey = false;
+      //Serial.println("Door closed");
+      //digitalWrite(10,LOW);
+      currentKey = "";
+      keyRegistered = false;
+    }
+    //If the current key contains '#' reset attempt
+    if (currentKey.endsWith("#") && currentKey.length() <= 4) {
+      currentKey = "";
+      Serial.println("Attempt deleted");
+    }
+
+    //If current key matches the key length and is saved at EEPROM
+    if (compareKey(currentKey) && currentKey.length() == 4 && !registroUnaVez) {
+      Serial.print("VALID_ENTRY;");
+      Serial.println(currentKey);
+      keyRegistered = true;
+      registroUnaVez = true;
+      entradaValida();
+    }
+    else if (validEntry && keyRegistered) {
+      open = true;
+      openByKey = true;
+      //Serial.println("Door opened!!");
+      setColor(0, 255, 0);
+      attempts = 0;
+    }
+    else if (!compareKey(currentKey) && currentKey.length() == 4) {
+      attempts++;
+
+      if (attempts != 3)
+      {
+        setColor(255, 0, 0);
+        delay(1000);
+        setColor(0, 0, 255);
+      }
+
+      currentKey = "";
+      //Serial.println("Number of attempts: "+String(attempts));
+    }
+    if (attempts >= maxAttempts) {
+      currentKey = "";
+      attempts = 0;
+      Serial.println("System locked");
+      setColor(255, 0, 0);
+      delay(LOCK_TIME);
+      Serial.println("System unlocked");
+      setColor(0, 0, 255);
+    }
+  }
+
+  boolean entradaValida() {
+    while (!respondeSolicitudEntrada)
+    {
+      receiveData();
+      processData();
+    }
+    return validEntry;
   }
 }
