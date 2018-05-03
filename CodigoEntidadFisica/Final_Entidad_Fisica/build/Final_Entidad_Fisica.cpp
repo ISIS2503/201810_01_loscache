@@ -6,6 +6,18 @@
   FINAL
 */
 #define SIZE_BUFFER_DATA       50
+#include "WProgram.h"
+void setup();
+void loop();
+void setColor(int redValue, int greenValue, int blueValue);
+boolean compareKey(String key);
+void processCommand(String input);
+void addPassword(int val, int index);
+void updatePassword(int val, int index);
+void deletePassword(int index);
+void deleteAllPasswords();
+void receiveData();
+void processData();
 boolean     stringComplete = false;
 String      inputString = "";
 char        bufferData [SIZE_BUFFER_DATA];
@@ -24,8 +36,7 @@ const String DELETE_PASSWORD = "DELETE_PASSWORD";
 const String DELETE_ALL_PASSWORDS = "DELETE_ALL_PASSWORDS";
 const String COMPARE_PASSWORD = "COMPARE_PASSWORD";
 const String VALID_ENTRY = "VALID_ENTRY";
-const String SI = "SI";
-const String NO = "NO";
+const String Y = "Y";
 
 //Time in milliseconds which the system is locked
 const int LOCK_TIME = 30000;
@@ -405,7 +416,7 @@ void setColor(int redValue, int greenValue, int blueValue) {
 
 // Method that compares a key with stored keys
 boolean compareKey(String key) {
-  //Serial.println("Se comparará la clave " + key);
+  //Serial.println("Se comparar\u00e1 la clave " + key);
   int acc = 3;
   int codif, arg0, arg1;
   for (int i = 0; i < 3; i++) {
@@ -443,7 +454,7 @@ void processCommand(String input) {
 
 //Method that adds a password in the specified index
 void addPassword(int val, int index) {
-  Serial.println("Se agregará la clave");
+  Serial.println("Se agregar\u00e1 la clave");
   byte arg0 = val % 256;
   byte arg1 = val / 256;
   EEPROM.write((index * 2) + 3, arg0);
@@ -459,7 +470,7 @@ void addPassword(int val, int index) {
 
 //Method that updates a password in the specified index
 void updatePassword(int val, int index) {
-  Serial.println("Se actualizará la clave");
+  Serial.println("Se actualizar\u00e1 la clave");
   byte arg0 = val % 256;
   byte arg1 = val / 256;
   EEPROM.write((index * 2) + 3, arg0);
@@ -470,7 +481,7 @@ void updatePassword(int val, int index) {
 void deletePassword(int index) {
   char s[4];//nice and big so no buffer overflow
   sprintf(s, "%d", index);
-  Serial.println("Se borrará la clave");
+  Serial.println("Se borrar\u00e1 la clave");
   byte i = 1;
   byte location = index / 8;
   byte position = index % 8;
@@ -483,7 +494,7 @@ void deletePassword(int index) {
 //Method that deletes all passwords
 void deleteAllPasswords() {
   //Password reference to inactive
-  Serial.println("Se borrarán todas las claves");
+  Serial.println("Se borrar\u00e1n todas las claves");
   EEPROM.write(0, 0);
   EEPROM.write(1, 0);
   EEPROM.write(2, 0);
@@ -544,11 +555,11 @@ void processData() {
     {
       Serial.println("Se valida entrada");
       Serial.println(secondVal);
-      if (secondVal == SI)
+      if (secondVal == Y)
       {
         validEntry = true;
       }
-      else if (secondVal == NO)
+      else if (secondVal == "N")
       {
         validEntry = false;
       }
@@ -560,3 +571,4 @@ void processData() {
     stringComplete = false;
   }
 }
+

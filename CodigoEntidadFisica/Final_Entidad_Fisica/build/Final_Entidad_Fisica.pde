@@ -24,8 +24,7 @@ const String DELETE_PASSWORD = "DELETE_PASSWORD";
 const String DELETE_ALL_PASSWORDS = "DELETE_ALL_PASSWORDS";
 const String COMPARE_PASSWORD = "COMPARE_PASSWORD";
 const String VALID_ENTRY = "VALID_ENTRY";
-const String SI = "SI";
-const String NO = "NO";
+const String Y = "Y";
 
 //Time in milliseconds which the system is locked
 const int LOCK_TIME = 30000;
@@ -544,11 +543,11 @@ void processData() {
     {
       Serial.println("Se valida entrada");
       Serial.println(secondVal);
-      if (secondVal == SI)
+      if (secondVal == Y)
       {
         validEntry = true;
       }
-      else if (secondVal == NO)
+      else if (secondVal == "N")
       {
         validEntry = false;
       }
