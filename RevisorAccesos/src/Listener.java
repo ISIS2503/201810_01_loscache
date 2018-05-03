@@ -30,7 +30,7 @@ import java.util.Date;
 public class Listener implements MqttCallback {
 
     /** Url del mosquitto */
-    private static final String brokerUrl = "tcp://172.24.42.96:8083";
+    private static final String brokerUrl = "tcp://172.24.41.200:8083";
 
     /** Id del cliente */
     private static final String clientId = "Accesos";
@@ -251,9 +251,9 @@ public class Listener implements MqttCallback {
 		}
 		
 		if(entra)
-			enviarMensaje("VALID_ENTRY;Y");
+			enviarMensaje("VALID_ENTRY;SI");
 		else
-			enviarMensaje("VALID_ENTRY;N");	
+			enviarMensaje("VALID_ENTRY;NO");	
 		
 
 		conn.disconnect();
