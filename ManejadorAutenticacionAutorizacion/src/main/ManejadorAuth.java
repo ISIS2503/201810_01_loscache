@@ -115,6 +115,9 @@ public class ManejadorAuth  {
 					}					
 				}
 				
+				System.out.println(sessionToken);
+
+				
 				System.out.println("Ha ingresado correctamente");
 				System.out.println();
 				
@@ -474,7 +477,11 @@ public class ManejadorAuth  {
     			String dir="https://isis2503-fposada.auth0.com/api/v2/users/"+usid;
     			ejecutarTareaAuth("DELETE", dir, null);
     		}
-    		
+    		else if(option.equals("SalirSesion"))
+    		{
+    			sessionToken=null;
+    			System.out.println("Ha salido del sistema, vuelva a iniciar sesión.");
+    		}    		
     		
     		else if(option.equals("Fin"))
     		{
@@ -500,7 +507,7 @@ public class ManejadorAuth  {
     	System.out.println("U1. Crear un usuario nuevo");
     	System.out.println("U2. Listar los usuarios");
     	System.out.println("U3. Consultar un usuario particular");
-    	System.out.println("U4. Actualizar un usuario");
+    	System.out.println("U4. Actualizar un usuario (No es soportado en Java pero sí en Postman)");
     	System.out.println("U5. Eliminar un usuario");
     	System.out.println("---------------------------------------------------------------------------------------------");
     	System.out.println("1. Ingresar con email y contraseña, si no ingresa no podrá realizar ninguna operación.");
@@ -520,6 +527,7 @@ public class ManejadorAuth  {
     	System.out.println("15. Borrar un horario en un sensor.");
     	System.out.println("16. Consultar horarios en un sensor.");
 
+    	System.out.println("SalirSesion - Cierra la sesión para ingresar con otra cuenta de usuario");
 
     	System.out.println("Fin - Enviar cambios");
     	System.out.println("---------------------------------------------------------------------------------------------");
@@ -570,6 +578,7 @@ public class ManejadorAuth  {
     	URL url = new URL(dir);
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
+		
 		conn.setRequestMethod(tipo);
 		conn.setRequestProperty("Content-Type", "application/json");
 		conn.setRequestProperty("Authorization", "Bearer "+authToken);
