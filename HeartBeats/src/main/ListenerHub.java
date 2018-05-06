@@ -24,18 +24,16 @@ import java.util.concurrent.TimeUnit;
  * @author Los cache
  *
  */
-public class Listener implements MqttCallback {
+public class ListenerHub implements MqttCallback {
 
     /** Url del mosquitto */
     private static final String brokerUrl = "tcp://172.24.41.200:8083";
 
     /** Id del cliente */
-    private static final String clientId = "Persistencia";
+    private static final String clientId = "HealthChecksHub";
 
     /** Nombre del topico */
-    private static final String topicoEntrada = "unirest1.inmueble1.sensor1";
-    
-    private static final String topicoSalida = "unirest1.inmueble1.sensor1.config";
+    private static final String topicoEntrada = "hub1";
     
     private static Date ultimoHB=new Date();
 
@@ -52,17 +50,18 @@ public class Listener implements MqttCallback {
                    	long dif=actual-ultimoRecibido;
                    	if(dif>10)
                    	{
-                   		System.out.println("perdidos= "+perdidos);
+                   		
                    		perdidos++;
+                   		System.out.println("perdidos= "+perdidos);
                    	}
                    	
                    	if(perdidos==3)
                    	{
-                   		SendMail.enviar("Sensor1");
+                   		SendMail.enviar("Hub1");
                    	};
                    }
                }, 0, 10, TimeUnit.SECONDS);
-        new Listener().subscribe(topicoEntrada);
+        new ListenerHub().subscribe(topicoEntrada);
         
     }
     
@@ -79,7 +78,7 @@ public class Listener implements MqttCallback {
     	
     	if(perdidos==3)
     	{
-    		SendMail.enviar("Sensor1");
+    		SendMail.enviar("Hub1");
     	}
     	
     }
