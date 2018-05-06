@@ -15,15 +15,20 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Listener implements MqttCallback {
 
     
-    private static final String brokerUrl = "tcp://172.24.42.96:8083";
+    private static final String brokerUrl = "tcp://172.24.41.200:8083";
     
     private static final String clientId = "Consumidor";
 
-    private static final String topic = "Yale.Hub1.UniRes1.Inmueble1.Sensor1";
+    private static final String topicoEntrada = "unirest1.inmueble1.sensor1";
+  
+
     
     private int numMensajes=0;
     
@@ -36,8 +41,9 @@ public class Listener implements MqttCallback {
      *            the arguments
      */
     public static void main(String[] args) {
-
-        new Listener().subscribe(topic);
+    	
+    	
+        new Listener().subscribe(topicoEntrada);
     }
 
     /**
@@ -96,13 +102,16 @@ public class Listener implements MqttCallback {
         	invocarPost(message);
     }
     
-    public void invocarPost(MqttMessage me)
-    {
-    	 try {
-    		 
+    public void invocarPost(MqttMessage me) throws Exception{
+   	 
     		 numMensajes++;
     		 
     		 String m=me.toString();
+    		 
+    		 if(m.indexOf("ALERTA")!=-1)
+     		{
+    			 SendMail.enviar(m);
+
 
     			URL url = new URL("http://172.24.42.84:8085/correos");
     			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -128,7 +137,7 @@ public class Listener implements MqttCallback {
     			Long c=b-a;
     			tiempoTotal+=c;
     			int promedio=tiempoTotal/numMensajes;
-    			
+
     			System.out.println("Tiempo promedio a "+numMensajes+" mensajes es : "+promedio);
 
     			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -141,17 +150,9 @@ public class Listener implements MqttCallback {
     			}
     			conn.disconnect();
 
-    		  } catch (MalformedURLException e) {
 
-    			e.printStackTrace();
+     		}
+    }
 
-    		  } catch (IOException e) {
-
-    			e.printStackTrace();
-
-    		 }
-
-    		}
-    
 
 }
