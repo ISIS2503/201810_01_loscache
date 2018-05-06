@@ -15,6 +15,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Este programa se apoya en el código realizado por el usuario m2mlO-gister, ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
@@ -24,18 +27,52 @@ import java.net.URL;
 public class Listener implements MqttCallback {
 
     /** Url del mosquitto */
-    private static final String brokerUrl = "tcp://172.24.42.96:8083";
+    private static final String brokerUrl = "tcp://172.24.41.200:8083";
 
     /** Id del cliente */
     private static final String clientId = "Persistencia";
 
     /** Nombre del topico */
-    private static final String topico = "Yale.Hub1.UniRes1.Inmueble1.Sensor1";
+    private static final String topicoEntrada = "unirest1.inmueble1.sensor1";
+    
+    private static final String topicoSalida = "hub1";
+
+    private static MqttClient sampleClient;
 
    
     public static void main(String[] args) {
-
-        new Listener().subscribe(topico);
+    	new Listener().subscribe(topicoEntrada);
+    	ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
+        exec.scheduleAtFixedRate(new Runnable() {
+                   public void run() {
+                	   enviarMensaje("HB");
+                   }
+               }, 0, 10, TimeUnit.SECONDS);
+        
+        
+    }
+    
+    public static void enviarMensaje(String content)
+    {
+    	 try {        
+    		 
+    		 if(sampleClient!=null) {            
+             System.out.println("Publicando mensaje al topico: " + topicoSalida);
+             MqttMessage message = new MqttMessage(content.getBytes());
+             message.setQos(0);
+             sampleClient.publish(topicoSalida, message);
+             System.out.println("Message published");
+    		 }
+         } catch (MqttException me) {
+             System.out.println("reason " + me.getReasonCode());
+             System.out.println("msg " + me.getMessage());
+             System.out.println("loc " + me.getLocalizedMessage());
+             System.out.println("cause " + me.getCause());
+             System.out.println("excep " + me);
+             me.printStackTrace();
+             
+         }
+    	
     }
 
     /**
@@ -47,7 +84,7 @@ public class Listener implements MqttCallback {
 
         try {
 
-            MqttClient sampleClient = new MqttClient(brokerUrl, clientId, persistence);
+            sampleClient = new MqttClient(brokerUrl, clientId, persistence);
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);
 
@@ -100,8 +137,10 @@ public class Listener implements MqttCallback {
     				conn.setDoOutput(true);
     				conn.setRequestMethod("POST");
     				conn.setRequestProperty("Content-Type", "application/json");
+    				
 
     				String input = "{\"mensaje\":\""+m+"\"}";
+    				
 
     				OutputStream os = conn.getOutputStream();
     				os.write(input.getBytes());
