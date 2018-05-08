@@ -426,7 +426,7 @@ if (!idAc.equalsIgnoreCase("Yale")) {
     }
     
     @GET
-    @Secured({Role.yale})
+    @Secured({Role.yale,Role.admin})
     @Path("{idHub}/mensualesBarrio/{barrio}")
     public List<AlarmaMensualDTO> getMensualesBarrio(@PathParam("idAcceso") String idAc, @PathParam("barrio") String idU) throws Exception {
 
@@ -434,7 +434,7 @@ if (!idAc.equalsIgnoreCase("Yale")) {
     }
     
     @GET
-    @Secured({Role.yale})
+    @Secured({Role.yale,Role.admin})
     @Path("{idHub}/unidadesResidenciales/{idUn}/mensuales")
     public List<AlarmaMensualDTO> getMensualesUnidad(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU) throws Exception {
 
