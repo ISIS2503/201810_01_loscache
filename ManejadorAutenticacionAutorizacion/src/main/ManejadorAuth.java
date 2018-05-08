@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Este programa se apoya en el c√≥digo realizado por el usuario m2mlO-gister, ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
+ * Este programa se apoya en el c√É¬≥digo realizado por el usuario m2mlO-gister, ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
  * @author Los cache
  *
  */
@@ -65,7 +65,7 @@ public class ManejadorAuth  {
     			
     			System.out.println("Ingrese su email");
     			us=sc.next();
-    			System.out.println("Ingrese su contraseÒa");
+    			System.out.println("Ingrese su contrase√±a");
     			con=sc.next();
     			
     			String input="{\n" + 
@@ -430,7 +430,46 @@ public class ManejadorAuth  {
     			else
     				System.out.println("No ha ingresado el sistema, debe iniciar sesion");
     			
-    		}    		
+    		}
+    		else if(option.equals("17"))
+    		{
+    			if(sessionToken!=null)
+    			{
+    				String unid;
+    				String hubid;
+    				System.out.println("Ingrese el id del hub");
+    				hubid=sc.next();
+    				System.out.println("Ingrese el id de la unidad residencial");
+    				unid=sc.next();
+    				System.out.println("Ingrese el id del inmueble");
+    				String inid = sc.next();
+    				System.out.println("Ingrese el id del sensor");
+    				String seid = sc.next();    		
+    				System.out.println("Ingrese el json de la clave en una sola linea");
+    				String input=sc.next();
+    				String dir=mainDir+hubid+unRes+"/"+unid+inmuebles+"/"+inid+sensores+"/"+seid+"/Claves";
+    				String tip="POST";
+    				ejecutarTarea(tip,dir,input);
+    			}
+    			else
+    				System.out.println("No ha ingresado el sistema, debe iniciar sesion");
+    		}
+    		else if(option.equals("18"))
+    		{
+    			String unid;
+				String hubid;
+				System.out.println("Ingrese el id del hub");
+				hubid=sc.next();
+				System.out.println("Ingrese el id de la unidad residencial");
+				unid=sc.next();
+				System.out.println("Ingrese el id del inmueble");
+				String inid = sc.next();
+				System.out.println("Ingrese el id del sensor");
+				String seid = sc.next(); 
+				String dir=mainDir+hubid+unRes+"/"+unid+inmuebles+"/"+inid+sensores+"/"+seid+"/Claves";
+				String tip="GET";
+				ejecutarTarea(tip,dir,null);
+    		}
     		else if(option.equals("U1"))
     		{
     			revisarAccesoAuth();
@@ -477,10 +516,66 @@ public class ManejadorAuth  {
     			String dir="https://isis2503-fposada.auth0.com/api/v2/users/"+usid;
     			ejecutarTareaAuth("DELETE", dir, null);
     		}
+    		else if(option.equals("F1"))
+    		{
+    			if(sessionToken!=null)
+    			{
+    				String unid;
+    				String hubid;
+    				System.out.println("Ingrese el id del hub");
+    				hubid=sc.next();
+    				System.out.println("Ingrese el nombre del barrio");
+    				unid=sc.next();
+    				
+    				String dir=mainDir+hubid+"/mensualesBarrio/"+unid;
+    				String tip="GET";
+    				ejecutarTarea(tip,dir,null);   				
+    			}
+    			else
+    				System.out.println("No ha ingresado el sistema, debe iniciar sesion");
+    		}
+    		else if(option.equals("F3"))
+    		{
+    			if(sessionToken!=null)
+    			{
+    				String unid;
+    				String hubid;
+    				System.out.println("Ingrese el id del hub");
+    				hubid=sc.next();
+    				System.out.println("Ingrese el id de la unidad residencial");
+    				unid=sc.next();
+    				
+    				String dir=mainDir+hubid+unRes+"/"+unid+"/mensuales";
+    				String tip="GET";
+    				ejecutarTarea(tip,dir,null);   				
+    			}
+    			else
+    				System.out.println("No ha ingresado el sistema, debe iniciar sesion");
+    		}
+    		else if(option.equals("F2"))
+    		{
+    			if(sessionToken!=null)
+    			{
+    				String unid;
+    				String hubid;
+    				System.out.println("Ingrese el id del hub");
+    				hubid=sc.next();
+    				System.out.println("Ingrese el id de la unidad residencial");
+    				unid=sc.next();
+    				System.out.println("Ingrese el id del inmueble");
+    				String inid = sc.next();
+    				
+    				String dir=mainDir+hubid+unRes+"/"+unid+"/inmuebles/"+inid+"/mensuales";
+    				String tip="GET";
+    				ejecutarTarea(tip,dir,null);   				
+    			}
+    			else
+    				System.out.println("No ha ingresado el sistema, debe iniciar sesion");
+    		}
     		else if(option.equals("SalirSesion"))
     		{
     			sessionToken=null;
-    			System.out.println("Ha salido del sistema, vuelva a iniciar sesiÛn.");
+    			System.out.println("Ha salido del sistema, vuelva a iniciar sesi√≥n.");
     		}    		
     		
     		else if(option.equals("Fin"))
@@ -490,7 +585,7 @@ public class ManejadorAuth  {
     		}
     		else
 			{
-				System.out.println("Ingreso una opciÛn que no existe");
+				System.out.println("Ingreso una opci√≥n que no existe");
 				break;
 			}
     		
@@ -507,10 +602,10 @@ public class ManejadorAuth  {
     	System.out.println("U1. Crear un usuario nuevo");
     	System.out.println("U2. Listar los usuarios");
     	System.out.println("U3. Consultar un usuario particular");
-    	System.out.println("U4. Actualizar un usuario (No es soportado en Java pero sÌ en Postman)");
+    	System.out.println("U4. Actualizar un usuario (No es soportado en Java pero s√≠ en Postman)");
     	System.out.println("U5. Eliminar un usuario");
     	System.out.println("---------------------------------------------------------------------------------------------");
-    	System.out.println("1. Ingresar con email y contraseÒa, si no ingresa no podr· realizar ninguna operaciÛn.");
+    	System.out.println("1. Ingresar con email y contrase√±a, si no ingresa no podr√° realizar ninguna operaci√≥n.");
     	System.out.println("2. Generar el reporte de alarmas de una unidad residencial.");
     	System.out.println("3. Generar el reporte de alarmas de un inmueble.");
     	System.out.println("4. Agregar un Hub.");
@@ -526,12 +621,18 @@ public class ManejadorAuth  {
     	System.out.println("14. Agregar un horario en un sensor.");
     	System.out.println("15. Borrar un horario en un sensor.");
     	System.out.println("16. Consultar horarios en un sensor.");
+    	System.out.println("17. Agregar una clave en un sensor.");
+    	System.out.println("18. Consultar claves en un sensor.");
+    	System.out.println("---------------------------------------------------------------------------------------------");
+    	System.out.println("F1. Consultar alarmas mensuales de un barrio.");
+    	System.out.println("F2. Consultar alarmas mensuales de un inmueble.");
+    	System.out.println("F3. Consultar alarmas mensuales de una unidad.");
 
-    	System.out.println("SalirSesion - Cierra la sesiÛn para ingresar con otra cuenta de usuario");
+    	System.out.println("SalirSesion - Cierra la sesi√≥n para ingresar con otra cuenta de usuario");
 
     	System.out.println("Fin - Enviar cambios");
     	System.out.println("---------------------------------------------------------------------------------------------");
-    	System.out.println("Para ejecutar una funciÛn, ingrese la opciÛn correspondiente y presione Enter (ej: \"2\" + enter");
+    	System.out.println("Para ejecutar una funci√≥n, ingrese la opci√≥n correspondiente y presione Enter (ej: \"2\" + enter");
     }
     
     public static void ejecutarTarea(String tipo, String dir, String input) throws Exception
