@@ -40,7 +40,7 @@ public class SendMail {
             message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse("f.posada@uniandes.edu.co"));
             message.setSubject("ALERTA");
-            message.setText("CERRADURA FUERA DE LÍNEA. ID DE CERRADURA: "+args);
+            message.setText("COMPONENTE FUERA DE LINEA. ID DE COMPONENTE: "+args);
 
             Transport.send(message);
 
