@@ -1,50 +1,69 @@
-package main;
+package com.mycompany.mqttfinalconsumer;
 
+import com.google.gson.Gson;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import com.google.gson.Gson;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.openssl.*;
+import org.bouncycastle.openssl.PEMReader;
 
-import java.io.BufferedReader;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
+
+import java.security.KeyPair;
+import java.security.KeyStore;
+import java.security.Security;
+import java.security.cert.X509Certificate;
+
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
-/**
- * Este programa se apoya en el c√≥digo realizado por el usuario m2mlO-gister,
- * ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
- *
- * @author Los cache
- *
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+
  */
-public class ManejadorClaves implements MqttCallback {
+/**
+ *
+ * @author s.guzmanm
+ */
+public class SimpleMqqtConsumerClient implements MqttCallback {
 
-	/**
-	 * Url del mosquitto
-	 */
-	private static final String brokerUrl = "tcp://172.24.41.200:8083";
+   private static final String brokerUrl = "tcp://172.24.41.200:8083";
 
 	/**
 	 * Id del cliente
 	 */
 	private static final String clientId = "Claves";
 
+	private static final String clave = "Isis2503.";
+
+	private static final String user = "microcontrolador";
+
+	static final String CRT_FILE_PATH = "/mosquittoSantiago";
+	static final String CA_FILE_PATH = "/m2mqtt_ca.crt";
+	static final String CLIENT_CRT_FILE_PATH = "/m2mqtt_srv.crt";
+	static final String CLIENT_KEY_FILE_PATH = "/m2mqtt_srv.key";
+	static final String ROOT = "C:\\Users\\s.saenz11\\Desktop\\201810_01_loscache\\ssl";
+	
 	/**
 	 * Nombre del topico
 	 */
@@ -59,7 +78,7 @@ public class ManejadorClaves implements MqttCallback {
 
 	private boolean termino = false;
 
-	public static void main(String[] args) throws MqttPersistenceException, MqttException {
+	public static void main(String[] args) throws Exception {
 
 		// leer archivo
 		String fileData="";
@@ -71,7 +90,7 @@ public class ManejadorClaves implements MqttCallback {
 
 		}
 
-		ManejadorClaves mc = new ManejadorClaves();
+		SimpleMqqtConsumerClient mc = new SimpleMqqtConsumerClient();
 
 		mc.darArregloJson(mc.getClaves(), fileData);
 
@@ -97,18 +116,83 @@ public class ManejadorClaves implements MqttCallback {
 
 
 	}
+	static SSLSocketFactory getSocketFactory (final String caCrtFile, final String crtFile, final String keyFile, 
+            final String password) throws Exception
+{
+Security.addProvider(new BouncyCastleProvider());
+    System.out.println("lo logr{o");
+// load CA certificate
+PEMReader reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(caCrtFile)))));
+X509Certificate caCert = (X509Certificate)reader.readObject();
+reader.close();
+ System.out.println("lo logr{o");
+// load client certificate
+reader = new PEMReader(new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(crtFile)))));
+X509Certificate cert = (X509Certificate)reader.readObject();
+reader.close();
+System.out.println("lo logr{o");
+// load client private key
+reader = new PEMReader(
+new InputStreamReader(new ByteArrayInputStream(Files.readAllBytes(Paths.get(keyFile)))),
+new PasswordFinder() {
+public char[] getPassword() {
+return password.toCharArray();
+}
+}
+);
+KeyPair key = (KeyPair)reader.readObject();
+reader.close();
+
+// CA certificate is used to authenticate server
+KeyStore caKs = KeyStore.getInstance(KeyStore.getDefaultType());
+caKs.load(null, null);
+caKs.setCertificateEntry("ca-certificate", caCert);
+TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+tmf.init(caKs);
+
+// client key and certificates are sent to server so it can authenticate us
+KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+ks.load(null, null);
+ks.setCertificateEntry("certificate", cert);
+ks.setKeyEntry("private-key", key.getPrivate(), password.toCharArray(), new java.security.cert.Certificate[]{cert});
+KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+kmf.init(ks, password.toCharArray());
+
+// finally, create SSL socket factory
+SSLContext context = SSLContext.getInstance("TLSv1.2");
+context.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+
+return context.getSocketFactory();
+}
+	
 
 	/**
 	 * Se suscribe al topico indicado en la url del broker.
+	 * @throws Exception 
 	 */
-	public void subscribe(String topic) {
+	public void subscribe(String topic) throws Exception {
 
 		try {
 
 			sampleClient = new MqttClient(brokerUrl, clientId);
 			MqttConnectOptions connOpts = new MqttConnectOptions();
+			
 			connOpts.setCleanSession(true);
+			
+			connOpts.setKeepAliveInterval(30);
+            connOpts.setMqttVersion(MqttConnectOptions.MQTT_VERSION_3_1);
+            connOpts.setUserName(user);
+            connOpts.setPassword(clave.toCharArray());
+            
+            //socket factory
+            System.out.println("lo logr{ol");
+            SSLSocketFactory socketFactory = getSocketFactory(ROOT+CRT_FILE_PATH+CA_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_CRT_FILE_PATH, ROOT+CRT_FILE_PATH+CLIENT_KEY_FILE_PATH, "");
+            System.out.println("lo logr{ol");
+            connOpts.setSocketFactory(socketFactory);
+			System.out.println("lo logr{ol");
+			
 			sampleClient.connect(connOpts);
+                        System.out.println("lo logr{ol");
 			System.out.println("Conectado");
 			sampleClient.setCallback(this);
 			sampleClient.subscribe(topic);
@@ -207,7 +291,7 @@ public class ManejadorClaves implements MqttCallback {
 			printMenu();
 			String option = sc.next();
 			if (option.equals("DeleteAll")) {
-				System.out.println("Est· seguro? (y/n)");
+				System.out.println("Est√° seguro? (y/n)");
 				String conf = sc.next();
 				if (conf.equals("y")) {
 					claves = new ArrayList<String>();
@@ -267,7 +351,7 @@ public class ManejadorClaves implements MqttCallback {
 							System.out.println("Error, la clave debe ser un numero de 4 digitos");
 							agregar = false;
 						}
-						//mandar a persisitr en la entidad fÌsica
+						//mandar a persisitr en la entidad f√≠sica
 						if (agregar) {
 							claves.add(id1-1,clave);
 							String men = "ADD_PASSWORD;" +id1+";"+clave+"";
@@ -313,7 +397,7 @@ public class ManejadorClaves implements MqttCallback {
 						sampleClient.publish(topico2, message);
 
 //						if(buscarCla(nuev)==false)
-//						{System.out.println("La clave que se intenta aÒadir no existe.");
+//						{System.out.println("La clave que se intenta a√±adir no existe.");
 //						}
 //						else {
 //							System.out.println("La clave existe");
@@ -323,7 +407,7 @@ public class ManejadorClaves implements MqttCallback {
 
 
 			else if (option.equals("Fin")) {
-				// System.out.println("Est· seguro que desea enviar los cambios? (y/n)");
+				// System.out.println("Est√° seguro que desea enviar los cambios? (y/n)");
 				//                String conf = sc.next();
 				//                if (conf.equals("y")) {
 				//                    String cont = "CLAVES:";
@@ -338,7 +422,7 @@ public class ManejadorClaves implements MqttCallback {
 				sampleClient.disconnect();
 				sampleClient.close();
 			} else {
-				System.out.println("Ingreso una opciÛn que no existe");
+				System.out.println("Ingreso una opci√≥n que no existe");
 
 			}
 			}
@@ -387,8 +471,8 @@ public class ManejadorClaves implements MqttCallback {
 	public void printMenu() {
 		System.out.println("Menu de manejo de claves");
 		System.out.println("---------------------------------------------------------------------------------------------");
-		System.out.println("Add_"+ "id - Ingresar una nueva clave en la posiciÛn deseada. No es posible si hay 20 claves.");
-		System.out.println("Las claves se deben agregar en orden numÈrico No es posible si hay 20 claves.");
+		System.out.println("Add_"+ "id - Ingresar una nueva clave en la posici√≥n deseada. No es posible si hay 20 claves.");
+		System.out.println("Las claves se deben agregar en orden num√©rico No es posible si hay 20 claves.");
 		System.out.println("DeleteAll  - Borra todas las claves.");
 		for (int i = 0; i < claves.size(); i++) {
 			int x = i + 1;
@@ -399,7 +483,7 @@ public class ManejadorClaves implements MqttCallback {
 		}
 		System.out.println("Fin - Enviar cambios");
 		System.out.println("---------------------------------------------------------------------------------------------");
-		System.out.println("Para ejecutar una funciÛn, ingrese la opciÛn correspondiente y presione Enter (ej: \"1_2\" + enter)");
+		System.out.println("Para ejecutar una funci√≥n, ingrese la opci√≥n correspondiente y presione Enter (ej: \"1_2\" + enter)");
 	}
 
 	public ArrayList<String> getClaves() {
@@ -410,10 +494,4 @@ public class ManejadorClaves implements MqttCallback {
 		this.claves = claves;
 	}
 
-
 }
-
-
-
-
-
