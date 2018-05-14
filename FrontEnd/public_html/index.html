@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<html >
+   
+  <head>
+        <title>Los Caché</title>
+    </head>
+ 
+    <style>
+.center {
+    margin: auto;
+    width: 70%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+    right: 10000px;
+    float: left;
+}
+.titulo{
+    position:absolute;
+    top:5px;
+    height: 100px;
+  width: 1350px;
+  
+  justify-content: center;
+  text-align: center;
+  font-family: "Helvetica Neue";
+  font-size: 60px;
+}
+p.solid {
+    border-style: solid;
+    width: 30%;
+    size: 100px;
+float: right;
+}
+
+.warning {
+    background-color: #ff9800;
+     width: 150px;
+     height:100px;
+     top: 10px;
+} /* Orange */
+.boton{
+    width: 100px;
+     height:30px;
+     top: 10px;
+}
+</style>
+
+    <body  style="padding-top: 80px; top: 100px">
+        
+         <h1 class = "titulo">Sistema Yale</h1>
+         <br>
+         <br>
+         
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css/bootstrap.min.css">
+       
+        <div id ="map"  role="main">
+  
+            <iframe class ="center"
+  width="200"
+  height="450"
+  frameborder="100px" style="border:100px"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxaUPkk9zQi6ymytV8HaKvMun3dEEoljM
+    &q=Space+Needle,Seattle+WA" allowfullscreen>
+</iframe>
+        </div>
+        <div>
+        <p  
+        <form action = "">
+  
+    <legend >Buscar residencia:</legend>
+    Nombre Residencia:<br>
+    <input type="text" name="residencia" value="">
+    <br>
+    Nombre Usuario:<br>
+    <input type="text" name="usuario" value="">
+    <br><br>
+     <button class ="boton" type="button" onclick="alert('Hello world!')">Buscar</button>
+  
+</form></p>
+           
+         </div>   
+        
+        <p >
+  
+    <legend >Filtrar residencias:</legend>
+   
+   <form action = "">
+  <input type="radio" name="gender" value="abierta" > Puerta abierta<br>
+  <input type="radio" name="gender" value="permitido"> Apertura no permitida<br>
+  <input type="radio" name="gender" value="sospechosa"> intento de apertura sosprechosa<br>
+  <input type="radio" name="gender" value="bateria"> Nivel de batería crítico<br>
+  <input type="radio" name="gender" value="cerradura"> Cerradura fuera de linea<br>
+  <input type="radio" name="gender" value="hub"> Hub fuera de linea<br><br>
+  <button class ="boton" type="button" onclick="alert('Hello world!')">Buscar</button>
+ 
+  
+        </p><br>
+
+ <p <form action="">
+  
+    <legend >   Alertas:</legend>
+   
+   
+   <div>
+       <button class ="warning" type="button" onclick="alert('Hello world!')">Residencia 1</button>
+   </div></p>
+    </body>
+     
+</html>
