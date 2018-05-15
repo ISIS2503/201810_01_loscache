@@ -13,6 +13,22 @@ and open the template in the editor.
     </head>
  
     <style>
+        #map {
+        height: 65%;
+        width: 70%;
+       border: 3px solid #0000;
+    padding: 10px;
+    right: 10px;
+    float: left;
+        
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      
 .center {
     margin: auto;
     width: 70%;
@@ -50,6 +66,10 @@ float: right;
      height:30px;
      top: 10px;
 }
+.select{
+    width: 155px;
+    height:30px;
+}
 </style>
 
     <body  style="padding-top: 80px; top: 100px">
@@ -60,23 +80,73 @@ float: right;
          
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css/bootstrap.min.css">
        
-        <div id ="map"  role="main">
-  
-            <iframe class ="center"
-  width="200"
-  height="450"
-  frameborder="100px" style="border:100px"
-  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxaUPkk9zQi6ymytV8HaKvMun3dEEoljM
-    &q=Space+Needle,Seattle+WA" allowfullscreen>
-</iframe>
-        </div>
+        <div id="map" >
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: new google.maps.LatLng(-33.91722, 151.23064),
+          mapTypeId: 'roadmap'
+        });
+
+       
+        var icons = {
+          parking: {
+            icon: 'https://static.getjar.com/icon-50x50/60/899670_thm.jpg'
+          },
+          library: {
+            icon:  'http://g-ecx.images-amazon.com/images/G/01/electronics/detail-page/3M/icon_yes.gif'
+          },
+          info: {
+            icon: 'http://www.clker.com/cliparts/4/i/2/m/N/F/warning-sing-th.png'
+          }
+        };
+
+        var features = [
+          {
+            position: new google.maps.LatLng(-33.916988, 151.233640),
+            type: 'info'
+          }, {
+            position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+            type: 'parking'
+          },  {
+            position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
+            type: 'parking'
+          },{
+            position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
+            type: 'library'
+          }
+        ];
+
+        // Create markers.
+        features.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxaUPkk9zQi6ymytV8HaKvMun3dEEoljM&callback=initMap">
+    </script>
+    
+    
+    </div>
         <div>
         <p  
         <form action = "">
   
     <legend >Buscar residencia:</legend>
     Nombre Residencia:<br>
-    <input type="text" name="residencia" value="">
+   <select class = "select">
+  <option label="Residencia 1">Residencia 1</option>
+  <option label="Residencia 2">Residencia 2 </option>
+  <option label="Residencia 3">Residencia 3</option>
+  <option label="Residencia 4">Residencia 4</option>
+</select>
     <br>
     Nombre Usuario:<br>
     <input type="text" name="usuario" value="">
