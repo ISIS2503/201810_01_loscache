@@ -20,7 +20,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Este programa se apoya en el código realizado por el usuario m2mlO-gister, ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
+ * Este programa se apoya en el cÃ³digo realizado por el usuario m2mlO-gister, ubicado en el repositorio https://gist.github.com/m2mIO-gister/5275324
  * @author Los cache
  *
  */
@@ -40,6 +40,9 @@ public class Listener implements MqttCallback {
     private static Date ultimoHB=new Date();
 
     private static int perdidos;
+    
+    private static String sessionToken;
+
 
    
     public static void main(String[] args) {
@@ -80,6 +83,7 @@ public class Listener implements MqttCallback {
     	if(perdidos==3)
     	{
     		SendMail.enviar("Sensor1");
+    		
     	}
     	
     }
@@ -143,6 +147,91 @@ public class Listener implements MqttCallback {
 
     		}
     	}
+    }
+    
+    public void enviarFallo() throws Exception
+    {
+    	URL url = new URL("http://172.24.42.43:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes1/inmuebles/Inmueble1/sensores/Sensor1/alarmas");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setRequestProperty("Authorization", "Bearer "+ sessionToken);
+		
+		System.out.println(url.toString());
+		String input = "{\"mensaje\":\"SENSOR FUERA DE LINEA\",\"fecha\":\"19/05/2018\"}";
+		
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+
+		if (conn.getResponseCode() != 200 && conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			throw new RuntimeException("Failed : HTTP error code : "
+				+ conn.getResponseCode());
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String output;
+		System.out.println("Output from Server .... \n");
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+		}
+
+		conn.disconnect();
+    }
+    
+    public void token() throws Exception
+    {
+    	String input="{\n" + 
+				"\"grant_type\":\"http://auth0.com/oauth/grant-type/password-realm\",\n" + 
+				"\"username\": \"kelly@yale.com\",\n" + 
+				"\"password\": \"Loscache2018\",\n" + 
+				"\"client_id\": \"2ylfhutIMlUx5zBKGqSoJNvljBxQFyXW\", \n" + 
+				"\"client_secret\": \"qNBo9Jdz1l9AkNZd52nWA9mTuYO8knGifuGyxVA9BXr5Np57y2pMslCGT1Hyv9eV\", \n" + 
+				"\"realm\": \"Username-Password-Authentication\"\n" + 
+				"}";
+		
+		//System.out.println(input);
+		
+		URL url = new URL("https://isis2503-fposada.auth0.com/oauth/token");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+		
+		boolean exito=true;
+
+		if (conn.getResponseCode() != 200 && conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			System.out.println("Error en la autenticacion, intentelo de nuevo.");
+			System.out.println(conn.getResponseMessage());
+			System.out.println();
+			System.out.println();
+			exito=false;
+		}
+		
+		if(exito) {
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String output;
+		
+		while ((output = br.readLine()) != null) {
+			if(output.contains("id_token"))
+			{
+				String[] paso1=output.split("\"id_token\":\"");
+				String[] paso2=paso1[1].split("\"");
+				sessionToken=paso2[0];						
+			}					
+		}
+    }
     }
 
 }
