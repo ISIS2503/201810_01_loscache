@@ -55,13 +55,19 @@ public class Listener implements MqttCallback {
                    	long dif=actual-ultimoRecibido;
                    	if(dif>10)
                    	{
-                   		System.out.println("perdidos= "+perdidos);
                    		perdidos++;
+                   		System.out.println("perdidos= "+perdidos);
                    	}
                    	
                    	if(perdidos==3)
                    	{
                    		SendMail.enviar("Sensor1");
+                   		try {
+							enviarFallo();
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
                    	};
                    }
                }, 0, 10, TimeUnit.SECONDS);
@@ -83,7 +89,7 @@ public class Listener implements MqttCallback {
     	if(perdidos==3)
     	{
     		SendMail.enviar("Sensor1");
-    		enviarFallo();
+    		
     	}
     	
     }
@@ -149,8 +155,10 @@ public class Listener implements MqttCallback {
     	}
     }
     
-    public void enviarFallo() throws Exception
+    public static void enviarFallo() throws Exception
     {
+    	if(sessionToken==null)
+    		token();
     	URL url = new URL("http://172.24.42.43:8080/Yale/hubs/Hub1/unidadesResidenciales/UniRes1/inmuebles/Inmueble1/sensores/Sensor1/alarmas");
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
@@ -183,7 +191,7 @@ public class Listener implements MqttCallback {
 		conn.disconnect();
     }
     
-    public void token() throws Exception
+    public static void token() throws Exception
     {
     	String input="{\n" + 
 				"\"grant_type\":\"http://auth0.com/oauth/grant-type/password-realm\",\n" + 
