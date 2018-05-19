@@ -34,6 +34,8 @@ public class AlarmaDTO {
     
     private String mensaje;
     
+    private String fecha;
+    
     private int activado;
     
     private String idSensor;
@@ -49,6 +51,14 @@ public class AlarmaDTO {
         this.mensaje=m;
         this.activado=1;
         this.idSensor=idS;
+    }
+    
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public String getId() {

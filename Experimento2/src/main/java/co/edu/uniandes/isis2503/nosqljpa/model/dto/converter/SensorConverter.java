@@ -49,6 +49,8 @@ public class SensorConverter implements ISensorConverter {
         dto.setId(entity.getId());
         dto.setMaxIntentosFallidos(entity.getMaxIntentosFallidos());
         dto.setIdInmueble(entity.getIdInmueble());
+        dto.setLat(entity.getLat());
+        dto.setLon(entity.getLon());
         return dto;
     }
 
@@ -60,6 +62,8 @@ public class SensorConverter implements ISensorConverter {
         entity.setHorarios(dto.getHorarios());
         entity.setMaxIntentosFallidos(dto.getMaxIntentosFallidos());
         entity.setIdInmueble(dto.getIdInmueble());
+        entity.setLat(dto.getLat());
+        entity.setLon(dto.getLon());
         return entity;
     }
 

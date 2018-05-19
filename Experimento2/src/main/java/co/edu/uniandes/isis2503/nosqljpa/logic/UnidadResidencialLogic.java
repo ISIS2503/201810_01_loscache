@@ -27,8 +27,10 @@ import co.edu.uniandes.isis2503.nosqljpa.interfaces.IUnidadResidencialLogic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.UnidadResidencialConverter.CONVERTER;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.UnidadResidencialDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.HubEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ListerEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.UnidadResidencialEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.HubPersistence;
+import co.edu.uniandes.isis2503.nosqljpa.persistence.ListerPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.UnidadResidencialPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +44,13 @@ public class UnidadResidencialLogic implements IUnidadResidencialLogic {
 
     private final UnidadResidencialPersistence persistence;
     private final HubPersistence persistenceHub;
+        private final ListerPersistence perLis;
+
 
     public UnidadResidencialLogic() {
         this.persistence = new UnidadResidencialPersistence();
         this.persistenceHub = new HubPersistence();
+        this.perLis= new ListerPersistence();
     }
 
     @Override
@@ -55,6 +60,7 @@ public class UnidadResidencialLogic implements IUnidadResidencialLogic {
         }
         UnidadResidencialEntity x = CONVERTER.dtoToEntity(dto);
         x.setIdHub(hubId);
+        addToLister(x);
         UnidadResidencialDTO result = CONVERTER.entityToDto(persistence.add(x));
         HubEntity h=persistenceHub.find(hubId);
         List<String> z=h.getUnidadesResidenciales();
@@ -99,6 +105,21 @@ public class UnidadResidencialLogic implements IUnidadResidencialLogic {
             z.add(e);
         }
         return CONVERTER.listEntitiesToListDTOs(z);
+    }
+    
+    private void addToLister(UnidadResidencialEntity x) {
+        if (perLis.all().isEmpty()) {
+            perLis.add(new ListerEntity());
+        }
+
+        List<ListerEntity> le = perLis.all();
+        if(le.isEmpty())
+            le.add(new ListerEntity());
+        ListerEntity fir = le.get(0);
+        List<String> li = fir.getUnidades();
+        li.add(x.getId());
+        fir.setUnidades(li);
+        perLis.update(fir);
     }
 
     

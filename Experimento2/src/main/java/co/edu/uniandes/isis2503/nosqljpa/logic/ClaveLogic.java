@@ -26,8 +26,10 @@ import co.edu.uniandes.isis2503.nosqljpa.interfaces.IClaveLogic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.ClaveConverter.CONVERTER;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ClaveDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.ClaveEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ListerEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.SensorEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.ClavePersistence;
+import co.edu.uniandes.isis2503.nosqljpa.persistence.ListerPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.SensorPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +44,13 @@ public class ClaveLogic implements IClaveLogic {
 
     private final ClavePersistence persistence;
     private final SensorPersistence perSe;
+        private final ListerPersistence perLis;
+
 
     public ClaveLogic() {
         this.persistence = new ClavePersistence();
         this.perSe= new SensorPersistence();
+        this.perLis= new ListerPersistence();
     }
 
       
@@ -55,6 +60,8 @@ public class ClaveLogic implements IClaveLogic {
             throw new WebApplicationException("La clave no puede ser nula");
         }        
         ClaveEntity x = CONVERTER.DtoToEntity(dto);
+                addToLister(x);
+
         x.setIdSensor(idS);
         ClaveDTO result = CONVERTER.entityToDTO(persistence.add(x));        
         return result;
@@ -118,6 +125,21 @@ public class ClaveLogic implements IClaveLogic {
         a.setActivado(0);
         persistence.update(a);
         return CONVERTER.entityToDTO(a);
+    }
+    
+    private void addToLister(ClaveEntity x) {
+        if (perLis.all().isEmpty()) {
+            perLis.add(new ListerEntity());
+        }
+
+        List<ListerEntity> le = perLis.all();
+        if(le.isEmpty())
+            le.add(new ListerEntity());
+        ListerEntity fir = le.get(0);
+        List<String> li = fir.getClaves();
+        li.add(x.getClave());
+        fir.setClaves(li);
+        perLis.update(fir);
     }
 
     

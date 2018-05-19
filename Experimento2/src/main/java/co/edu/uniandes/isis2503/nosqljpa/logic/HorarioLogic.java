@@ -28,8 +28,10 @@ import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.AlarmaDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.HorarioDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.HorarioEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.InmuebleEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ListerEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.SensorEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.HorarioPersistence;
+import co.edu.uniandes.isis2503.nosqljpa.persistence.ListerPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.SensorPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +45,13 @@ public class HorarioLogic implements IHorarioLogic {
 
     private final HorarioPersistence persistence;
     private final SensorPersistence perSe;
+        private final ListerPersistence perLis;
+
 
     public HorarioLogic() {
         this.persistence = new HorarioPersistence();
         this.perSe= new SensorPersistence();
+        this.perLis= new ListerPersistence();
     }
 
       
@@ -57,7 +62,7 @@ public class HorarioLogic implements IHorarioLogic {
         }        
         HorarioEntity x = CONVERTER.DtoToEntity(dto);        
         x.setIdSensor(idS);
-        
+        addToLister(x);
         SensorEntity h=perSe.find(idS);
         List<String> z1=h.getHorarios();
         z1.add(dto.getDueno()+";"+dto.getHoraInicial()+";"+dto.getHoraFinal());
@@ -167,6 +172,21 @@ public class HorarioLogic implements IHorarioLogic {
 
     public List<HorarioDTO> allDeUnDueno(String du, String idS) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+     private void addToLister(HorarioEntity x) {
+        if (perLis.all().isEmpty()) {
+            perLis.add(new ListerEntity());
+        }
+
+        List<ListerEntity> le = perLis.all();
+        if(le.isEmpty())
+            le.add(new ListerEntity());
+        ListerEntity fir = le.get(0);
+        List<String> li = fir.getHorarios();
+        li.add(x.getId());
+        fir.setHorarios(li);
+        perLis.update(fir);
     }
 
     

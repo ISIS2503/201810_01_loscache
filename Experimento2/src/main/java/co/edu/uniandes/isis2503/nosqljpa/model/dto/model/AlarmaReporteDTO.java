@@ -22,45 +22,47 @@
  * THE SOFTWARE.
  */
 package co.edu.uniandes.isis2503.nosqljpa.model.dto.model;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  *
  * @author loscache
  */
 @XmlRootElement
-public class UnidadResidencialDTO {
-    
+public class AlarmaReporteDTO {
     private String id;
     
-    private String name;
+    private String mensaje;
     
-    private String direccion;
+    private String fecha;
     
     private int activado;
-
-    private List<String> inmuebles;
     
-    private String idHub;
+    private String idSensor;
     
-    private String barrio;
+    private String lat;
     
-    public UnidadResidencialDTO() {
-        this.inmuebles = new ArrayList();
-        this.activado = 1;
+    private String lon;
+    
+    public AlarmaReporteDTO()
+    {
+        this.activado=1;
+    }
+    
+    public AlarmaReporteDTO(String i, String m, String idS)
+    {
+        this.id=i;
+        this.mensaje=m;
+        this.activado=1;
+        this.idSensor=idS;
+    }
+    
+    public String getFecha() {
+        return fecha;
     }
 
-    public UnidadResidencialDTO(String id, String name, String code, List<String> rooms, String idH) {
-        this.id = id;
-        this.name = name;
-        this.direccion = code;
-        this.inmuebles = rooms;
-        this.activado = 1;
-        this.idHub=idH;
-
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public String getId() {
@@ -71,20 +73,12 @@ public class UnidadResidencialDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
     public int getActivado() {
@@ -95,33 +89,28 @@ public class UnidadResidencialDTO {
         this.activado = activado;
     }
 
-    public List<String> getInmuebles() {
-        return inmuebles;
+    public String getIdSensor() {
+        return idSensor;
     }
 
-    public void setInmuebles(List<String> inmuebles) {
-        this.inmuebles = inmuebles;
-    }
-    
-    public void addInmueble(String in)
-    {
-        this.inmuebles.add(in);
-    }
-    
-    public String getIdHub() {
-        return idHub;
+    public void setIdSensor(String idSensor) {
+        this.idSensor = idSensor;
     }
 
-    public void setIdHub(String idHub) {
-        this.idHub = idHub;
+    public String getLat() {
+        return lat;
     }
 
-    public String getBarrio() {
-        return barrio;
+    public void setLat(String lat) {
+        this.lat = lat;
     }
 
-    public void setBarrio(String barrio) {
-        this.barrio = barrio;
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon;
     }
     
     

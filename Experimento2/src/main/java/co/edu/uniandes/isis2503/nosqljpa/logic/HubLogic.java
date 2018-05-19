@@ -26,8 +26,10 @@ package co.edu.uniandes.isis2503.nosqljpa.logic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.HubConverter.CONVERTER;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.HubDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.HubEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ListerEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.UnidadResidencialEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.HubPersistence;
+import co.edu.uniandes.isis2503.nosqljpa.persistence.ListerPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.UnidadResidencialPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +43,13 @@ public class HubLogic{
     
     private final HubPersistence persistence;
     private final UnidadResidencialPersistence perUn;
+        private final ListerPersistence perLis;
+
 
     public HubLogic() {
         this.persistence = new HubPersistence();
         this.perUn= new UnidadResidencialPersistence();
+        this.perLis= new ListerPersistence();
     }
 
     
@@ -52,7 +57,9 @@ public class HubLogic{
          if(dto.getId()==null){
             dto.setId(UUID.randomUUID().toString());
          }
+         addToLister(dto.getId());
         HubDTO result = CONVERTER.entityToDto(persistence.add(CONVERTER.dtoToEntity(dto)));
+        System.out.println("AHORA HAY "+persistence.all().size());
         return result;
     }
 
@@ -96,5 +103,20 @@ public class HubLogic{
                 System.err.println("ola2");
 
         return CONVERTER.entityToDto(a);
+    }
+    
+    private void addToLister(String x) {
+        if (perLis.all().isEmpty()) {
+            perLis.add(new ListerEntity());
+        }
+
+        List<ListerEntity> le = perLis.all();
+        if(le.isEmpty())
+            le.add(new ListerEntity());
+        ListerEntity fir = le.get(0);
+        List<String> li = fir.getHubs();
+        li.add(x);
+        fir.setHubs(li);
+        perLis.update(fir);
     }
 }

@@ -33,6 +33,8 @@ import co.edu.uniandes.isis2503.nosqljpa.logic.InmuebleLogic;
 import co.edu.uniandes.isis2503.nosqljpa.logic.SensorLogic;
 import co.edu.uniandes.isis2503.nosqljpa.logic.UnidadResidencialLogic;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.AlarmaDTO;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.AlarmaMensualDTO;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.AlarmaReporteDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.ClaveDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.HubDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.InmuebleDTO;
@@ -321,6 +323,15 @@ if (!idAc.equalsIgnoreCase("Yale")) {
 
         return sensorLogic.findDeInmueble(idU);
     }
+    
+    @GET
+    @Secured({Role.admin})
+    @Path("{idHub}/unidadesResidenciales/{idUn}/sensores")
+    public List<SensorDTO> getSensorsUnidad(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU) throws Exception {
+        
+
+        return sensorLogic.findDeUnidad(idU);
+    }
 
     @GET
     @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idU}/sensores/{idS}")
@@ -410,8 +421,9 @@ if (!idAc.equalsIgnoreCase("Yale")) {
     }
     
     @GET
+    @Secured({Role.admin, Role.yale})
     @Path("{idHub}/unidadesResidenciales/{idUn}/reporte")
-    public List<AlarmaDTO> getAlarmasUnidad(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU) throws Exception {
+    public List<AlarmaReporteDTO> getAlarmasUnidad(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU) throws Exception {
 
         return alarmaLogic.allDeUnUnidad(idU);
     }
@@ -421,6 +433,31 @@ if (!idAc.equalsIgnoreCase("Yale")) {
     public List<AlarmaDTO> getAlarmasInmueble(@PathParam("idAcceso") String idAc, @PathParam("idIn") String idU) throws Exception {
 
         return alarmaLogic.allDeUnInmueble(idU);
+    }
+    
+    @GET
+    @Secured({Role.yale,Role.admin})
+    @Path("{idHub}/mensualesBarrio/{barrio}")
+    public List<AlarmaMensualDTO> getMensualesBarrio(@PathParam("idAcceso") String idAc, @PathParam("barrio") String idU) throws Exception {
+
+        return alarmaLogic.mensualesBarrio(idU);
+    }
+    
+    @GET
+    @Secured({Role.yale,Role.admin})
+    @Path("{idHub}/unidadesResidenciales/{idUn}/mensuales")
+    public List<AlarmaMensualDTO> getMensualesUnidad(@PathParam("idAcceso") String idAc, @PathParam("idUn") String idU) throws Exception {
+
+        return alarmaLogic.mensualesUnidad(idU);
+    }
+    
+    
+    @GET
+    @Secured({Role.yale,Role.admin})
+    @Path("{idHub}/unidadesResidenciales/{idUn}/inmuebles/{idIn}/mensuales")
+    public List<AlarmaMensualDTO> getMensualesInmueble(@PathParam("idAcceso") String idAc, @PathParam("idIn") String idU) throws Exception {
+
+        return alarmaLogic.mensualesInmueble(idU);
     }
 
     @GET

@@ -27,8 +27,10 @@ import co.edu.uniandes.isis2503.nosqljpa.interfaces.IInmuebleLogic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.InmuebleConverter.CONVERTER;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.InmuebleDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.InmuebleEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ListerEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.UnidadResidencialEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.InmueblePersistence;
+import co.edu.uniandes.isis2503.nosqljpa.persistence.ListerPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.UnidadResidencialPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +44,14 @@ public class InmuebleLogic implements IInmuebleLogic {
 
     private final InmueblePersistence persistence;
         private final UnidadResidencialPersistence perUn;
+            private final ListerPersistence perLis;
+
 
 
     public InmuebleLogic() {
         this.persistence = new InmueblePersistence();
         this.perUn = new UnidadResidencialPersistence();
+        this.perLis= new ListerPersistence();
     }
 
     @Override
@@ -56,6 +61,7 @@ public class InmuebleLogic implements IInmuebleLogic {
         }
         InmuebleEntity x = CONVERTER.dtoToEntity(dto);
         x.setIdUnidad(idU);
+        addToLister(x);
         InmuebleDTO result = CONVERTER.entityToDto(persistence.add(x));
         UnidadResidencialEntity h=perUn.find(idU);
         System.out.println("a ver");
@@ -103,5 +109,20 @@ public class InmuebleLogic implements IInmuebleLogic {
         }
         return CONVERTER.listEntitiesToListDTOs(z);
 
+    }
+    
+    private void addToLister(InmuebleEntity x) {
+        if (perLis.all().isEmpty()) {
+            perLis.add(new ListerEntity());
+        }
+
+        List<ListerEntity> le = perLis.all();
+        if(le.isEmpty())
+            le.add(new ListerEntity());
+        ListerEntity fir = le.get(0);
+        List<String> li = fir.getInmuebles();
+        li.add(x.getId());
+        fir.setInmuebles(li);
+        perLis.update(fir);
     }
 }

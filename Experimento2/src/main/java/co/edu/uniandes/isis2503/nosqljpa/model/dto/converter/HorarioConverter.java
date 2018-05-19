@@ -55,7 +55,7 @@ public class HorarioConverter implements IHorarioConverter {
     public HorarioEntity DtoToEntity(HorarioDTO a)
     {
         HorarioEntity r=new HorarioEntity();
-                r.setId(a.getId());
+        r.setId(a.getId());
         r.setActivado(a.getActivado());
         r.setHoraFinal(a.getHoraFinal());
         r.setHoraInicial(a.getHoraInicial());

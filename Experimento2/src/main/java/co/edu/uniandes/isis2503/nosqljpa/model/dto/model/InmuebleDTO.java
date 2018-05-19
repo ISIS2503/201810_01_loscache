@@ -38,6 +38,10 @@ public class InmuebleDTO {
      
     private String propietario;
     
+    private String telPropietario;
+    
+    private String emailPropietario;
+    
     private int activado;
     
     private List<String> sensores;
@@ -65,6 +69,22 @@ public class InmuebleDTO {
 
     public void setId(String id) {
         this.id = id;
+    }
+    
+    public String getTelPropietario() {
+        return telPropietario;
+    }
+
+    public void setTelPropietario(String telPropietario) {
+        this.telPropietario = telPropietario;
+    }
+
+    public String getEmailPropietario() {
+        return emailPropietario;
+    }
+
+    public void setEmailPropietario(String emailPropietario) {
+        this.emailPropietario = emailPropietario;
     }
 
     public String getPropietario() {

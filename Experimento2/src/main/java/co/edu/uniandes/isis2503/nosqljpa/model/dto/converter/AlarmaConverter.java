@@ -46,6 +46,7 @@ public class AlarmaConverter implements IAlarmaConverter {
         r.setIdSensor(a.getIdSensor());
         r.setMensaje(a.getMensaje());
         r.setId(a.getId());
+        r.setFecha(a.getFecha());
         return r;
     }
     
@@ -55,6 +56,7 @@ public class AlarmaConverter implements IAlarmaConverter {
         r.setId(a.getId());
         r.setIdSensor(a.getIdSensor());
         r.setMensaje(a.getMensaje());
+        r.setFecha(a.getFecha());
         return r;
     }
     

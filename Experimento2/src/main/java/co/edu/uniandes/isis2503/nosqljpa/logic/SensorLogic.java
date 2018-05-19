@@ -27,8 +27,10 @@ import co.edu.uniandes.isis2503.nosqljpa.interfaces.ISensorLogic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.SensorConverter.CONVERTER;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.SensorDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.InmuebleEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ListerEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.SensorEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.InmueblePersistence;
+import co.edu.uniandes.isis2503.nosqljpa.persistence.ListerPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.SensorPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +44,14 @@ public class SensorLogic implements ISensorLogic {
 
     private final SensorPersistence persistence;
         private final InmueblePersistence perIn;
+            private final ListerPersistence perLis;
+
 
 
     public SensorLogic() {
         this.persistence = new SensorPersistence();
     this.perIn=new InmueblePersistence();
+    this.perLis= new ListerPersistence();
     }
     
     @Override
@@ -56,6 +61,7 @@ public class SensorLogic implements ISensorLogic {
         }
         SensorEntity x = CONVERTER.dtoToEntity(dto);
         x.setIdInmueble(idIn);
+        addToLister(x);
         SensorDTO result = CONVERTER.entityToDto(persistence.add(x));
         InmuebleEntity h=perIn.find(idIn);
         List<String> z=h.getSensores();
@@ -109,5 +115,36 @@ public class SensorLogic implements ISensorLogic {
             z.add(e);
         }
         return CONVERTER.listEntitiesToListDTOs(z);
+    }
+    
+    
+    public List<SensorDTO> findDeUnidad(String idIn) {
+        List<SensorEntity> x = persistence.all();
+        List<SensorEntity> z=new ArrayList();
+        for(SensorEntity e:x)
+        {
+            System.out.println(e.getId());
+            System.out.println(e.getIdInmueble());
+            InmuebleEntity i=perIn.find(e.getIdInmueble());
+            
+            if(i.getIdUnidad().equals(idIn))
+            z.add(e);
+        }
+        return CONVERTER.listEntitiesToListDTOs(z);
+    }
+    
+    private void addToLister(SensorEntity x) {
+        if (perLis.all().isEmpty()) {
+            perLis.add(new ListerEntity());
+        }
+
+        List<ListerEntity> le = perLis.all();
+        if(le.isEmpty())
+            le.add(new ListerEntity());
+        ListerEntity fir = le.get(0);
+        List<String> li = fir.getSensores();
+        li.add(x.getId());
+        fir.setSensores(li);
+        perLis.update(fir);
     }
 }

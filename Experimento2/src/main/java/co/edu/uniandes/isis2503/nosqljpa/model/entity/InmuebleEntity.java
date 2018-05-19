@@ -43,6 +43,10 @@ public class InmuebleEntity implements Serializable {
      
     private String propietario;
     
+    private String telPropietario;
+    
+    private String emailPropietario;
+    
     private int activado;
     
     @ElementCollection
@@ -104,6 +108,24 @@ public class InmuebleEntity implements Serializable {
     public void setIdUnidad(String idUnidad) {
         this.idUnidad = idUnidad;
     }
+
+    public String getTelPropietario() {
+        return telPropietario;
+    }
+
+    public void setTelPropietario(String telPropietario) {
+        this.telPropietario = telPropietario;
+    }
+
+    public String getEmailPropietario() {
+        return emailPropietario;
+    }
+
+    public void setEmailPropietario(String emailPropietario) {
+        this.emailPropietario = emailPropietario;
+    }
+    
+    
     
     
     

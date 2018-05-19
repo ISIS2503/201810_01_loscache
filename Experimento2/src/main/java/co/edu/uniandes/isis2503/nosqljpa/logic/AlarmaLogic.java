@@ -26,12 +26,16 @@ import ch.qos.logback.classic.util.ContextInitializer;
 import co.edu.uniandes.isis2503.nosqljpa.interfaces.IAlarmaLogic;
 import static co.edu.uniandes.isis2503.nosqljpa.model.dto.converter.AlarmaConverter.CONVERTER;
 import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.AlarmaDTO;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.AlarmaMensualDTO;
+import co.edu.uniandes.isis2503.nosqljpa.model.dto.model.AlarmaReporteDTO;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.AlarmaEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.InmuebleEntity;
+import co.edu.uniandes.isis2503.nosqljpa.model.entity.ListerEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.SensorEntity;
 import co.edu.uniandes.isis2503.nosqljpa.model.entity.UnidadResidencialEntity;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.AlarmaPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.InmueblePersistence;
+import co.edu.uniandes.isis2503.nosqljpa.persistence.ListerPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.SensorPersistence;
 import co.edu.uniandes.isis2503.nosqljpa.persistence.UnidadResidencialPersistence;
 import java.util.ArrayList;
@@ -48,12 +52,14 @@ public class AlarmaLogic implements IAlarmaLogic {
     private final SensorPersistence perSe;
     private final InmueblePersistence perIn;
     private final UnidadResidencialPersistence perUn;
+    private final ListerPersistence perLis;
 
     public AlarmaLogic() {
         this.persistence = new AlarmaPersistence();
         this.perSe= new SensorPersistence();
         this.perUn= new UnidadResidencialPersistence();
         this.perIn= new InmueblePersistence();
+        this.perLis= new ListerPersistence();
     }
 
       
@@ -67,6 +73,8 @@ public class AlarmaLogic implements IAlarmaLogic {
         AlarmaEntity z=persistence.add(x);
         AlarmaDTO result = CONVERTER.entityToDTO(z);
 
+        
+        
         SensorEntity h=perSe.find(idS);
         List<String> z1=h.getAlarmas();
         z1.add(dto.getId()+";"+dto.getMensaje());
@@ -116,8 +124,13 @@ public class AlarmaLogic implements IAlarmaLogic {
         return CONVERTER.listEntitiesToListDTOs(z);
     }
     
-    public List<AlarmaDTO> allDeUnUnidad(String idS) {
-        List<SensorEntity> x = perSe.all();
+    public List<AlarmaDTO> allDeUnUnidad2(String idS) {
+        ListerEntity lix=perLis.all().get(0);        
+        List<SensorEntity> x = new ArrayList();
+        for(String idU:lix.getUnidades())
+        {
+            x.add(perSe.find(idU));
+        }
         System.out.println("HAY SENSORES ASDASD "+x.size());
         List<AlarmaDTO> z=new ArrayList();
         for(SensorEntity e:x)
@@ -141,24 +154,160 @@ public class AlarmaLogic implements IAlarmaLogic {
     }
     
     public List<AlarmaDTO> allDeUnInmueble(String idS) {
-        List<SensorEntity> x = perSe.all();
-        System.out.println("HAY SENSORES ASDASD "+x.size());
-        List<AlarmaDTO> z=new ArrayList();
-        for(SensorEntity e:x)
-        {
-            List<String> alAct = e.getAlarmas();            
-            InmuebleEntity x1=null;
-            if(e.getIdInmueble().equals(idS))
-                {
-                    for(String alarmita:alAct){
-                        String[] data=alarmita.split(";");
-                    AlarmaDTO ag=new AlarmaDTO(data[0],data[1],e.getId());
-                    z.add(ag);
-                    }
-                }             
-       }         
         
-        return z;
+        List<AlarmaEntity> z=persistence.all();
+                List<AlarmaDTO> z2=new ArrayList();
+
+        System.out.println("HAY ESTAS ALARMAS "+z.size());
+        for(AlarmaEntity e:z)
+        {
+            SensorEntity s=perSe.find(e.getIdSensor());
+            String idInmueble=s.getIdInmueble();
+            if(idInmueble.equals(idS))
+             z2.add(CONVERTER.entityToDTO(e));            
+        }         
+        return z2;
+        
+    }
+    
+    
+    
+    public List<AlarmaMensualDTO> mensualesBarrio(String pbarrio) {
+        
+        List<AlarmaEntity> z=persistence.all();
+        List<AlarmaDTO> z2=new ArrayList();
+        AlarmaMensualDTO[] mens=new AlarmaMensualDTO[12];
+        for(int i=0;i<12;i++)
+        {
+            mens[i]=new AlarmaMensualDTO();
+            mens[i].setMes(i+1);
+        }
+
+        System.out.println("HAY ESTAS ALARMAS "+z.size());
+        for(AlarmaEntity e:z)
+        {
+            SensorEntity s=perSe.find(e.getIdSensor());
+            String idInmueble=s.getIdInmueble();
+            InmuebleEntity ie=perIn.find(idInmueble);
+            String idUni=ie.getIdUnidad();
+            UnidadResidencialEntity ur=perUn.find(idUni);
+            if(ur.getBarrio().equals(pbarrio))
+            {
+                String mesSt=e.getFecha().substring(3, 5);
+                int mesI=Integer.parseInt(mesSt);
+                mens[mesI-1].addAlarma(e.getIdSensor()+"-"+e.getMensaje());
+             z2.add(CONVERTER.entityToDTO(e));  
+            }
+        }         
+        ArrayList<AlarmaMensualDTO> resp = new ArrayList<AlarmaMensualDTO>();
+        for(int i=0;i<12;i++)
+        {
+            resp.add(mens[i]);
+        }
+        return resp;
+        
+    }
+    
+    public List<AlarmaMensualDTO> mensualesUnidad(String idU) {
+        
+        List<AlarmaEntity> z=persistence.all();
+        List<AlarmaDTO> z2=new ArrayList();
+        AlarmaMensualDTO[] mens=new AlarmaMensualDTO[12];
+        for(int i=0;i<12;i++)
+        {
+            mens[i]=new AlarmaMensualDTO();
+            mens[i].setMes(i+1);
+        }
+
+        System.out.println("HAY ESTAS ALARMAS "+z.size());
+        for(AlarmaEntity e:z)
+        {
+            SensorEntity s=perSe.find(e.getIdSensor());
+            String idInmueble=s.getIdInmueble();
+            InmuebleEntity ie=perIn.find(idInmueble);
+            String idUni=ie.getIdUnidad();
+            if(idUni.equals(idU))
+            {
+                String mesSt=e.getFecha().substring(3, 5);
+                System.out.println("A PARSEAR: "+mesSt);
+                int mesI=Integer.parseInt(mesSt);
+                System.out.println(mesI);
+
+                mens[mesI-1].addAlarma(e.getIdSensor()+"-"+e.getMensaje());
+             z2.add(CONVERTER.entityToDTO(e));  
+            }
+        }         
+        ArrayList<AlarmaMensualDTO> resp = new ArrayList();
+        for(int i=0;i<12;i++)
+        {
+            resp.add(mens[i]);
+        }
+        return resp;
+        
+    }
+    
+    public List<AlarmaMensualDTO> mensualesInmueble(String idIn) {
+        
+        List<AlarmaEntity> z=persistence.all();
+        List<AlarmaDTO> z2=new ArrayList();
+        AlarmaMensualDTO[] mens=new AlarmaMensualDTO[12];
+        for(int i=0;i<12;i++)
+        {
+            mens[i]=new AlarmaMensualDTO();
+            mens[i].setMes(i+1);
+        }
+
+        System.out.println("HAY ESTAS ALARMAS "+z.size());
+        for(AlarmaEntity e:z)
+        {
+            SensorEntity s=perSe.find(e.getIdSensor());
+            String idInmueble=s.getIdInmueble();
+            if(idInmueble.equals(idIn))
+            {
+                String mesSt=e.getFecha().substring(3, 5);
+                int mesI=Integer.parseInt(mesSt);
+                mens[mesI-1].addAlarma(e.getIdSensor()+"-"+e.getMensaje());
+             z2.add(CONVERTER.entityToDTO(e));  
+            }
+        }         
+        ArrayList<AlarmaMensualDTO> resp = new ArrayList();
+        for(int i=0;i<12;i++)
+        {
+            resp.add(mens[i]);
+        }
+        return resp;
+        
+    }
+    
+    public List<AlarmaReporteDTO> allDeUnUnidad(String idS) {
+        
+        List<AlarmaEntity> z=persistence.all();
+                List<AlarmaReporteDTO> z2=new ArrayList();
+
+        System.out.println("HAY ESTAS ALARMAS "+z.size());
+        for(AlarmaEntity e:z)
+        {
+            
+            SensorEntity s=perSe.find(e.getIdSensor());
+            String idInmueble=s.getIdInmueble();
+            InmuebleEntity ie=perIn.find(idInmueble);
+            String idUni=ie.getIdUnidad();
+            if(idUni.equals(idS))
+            {
+                AlarmaReporteDTO x=new AlarmaReporteDTO();
+                x.setId(e.getId());
+                x.setFecha(e.getFecha());
+                x.setActivado(1);
+                x.setMensaje(e.getMensaje());
+                x.setIdSensor(e.getIdSensor());
+                x.setLat(s.getLat());
+                x.setLon(s.getLon());
+                z2.add(x); 
+            
+            }           
+        }         
+        return z2;
+        
     }
 
     
@@ -169,6 +318,21 @@ public class AlarmaLogic implements IAlarmaLogic {
         return CONVERTER.entityToDTO(a);
     }
 
+    
+    private void addToLister(AlarmaEntity x) {
+        if (perLis.all().isEmpty()) {
+            perLis.add(new ListerEntity());
+        }
+
+        List<ListerEntity> le = perLis.all();
+        if(le.isEmpty())
+            le.add(new ListerEntity());
+        ListerEntity fir = le.get(0);
+        List<String> li = fir.getAlarmas();
+        li.add(x.getId());
+        fir.setAlarmas(li);
+        perLis.update(fir);
+    }
     
 
     

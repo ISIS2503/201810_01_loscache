@@ -48,6 +48,8 @@ public class UnidadResidencialEntity implements Serializable {
     private String direccion;
 
     private int activado;
+    
+    private String barrio;
 
     @ElementCollection
     private List<String> inmuebles;
@@ -116,6 +118,16 @@ public class UnidadResidencialEntity implements Serializable {
     public void setIdHub(String idHub) {
         this.idHub = idHub;
     }
+
+    public String getBarrio() {
+        return barrio;
+    }
+
+    public void setBarrio(String barrio) {
+        this.barrio = barrio;
+    }
+    
+    
     
     
 

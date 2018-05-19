@@ -53,7 +53,10 @@ public class Persistencer<T, PK> {
         try {
 
             entityManager.getTransaction().begin();
+            System.out.println("Se va a persistir");
             entityManager.persist(entity);
+                        System.out.println("Se persistió");
+
             entityManager.getTransaction().commit();
 
         } catch (RuntimeException e) {

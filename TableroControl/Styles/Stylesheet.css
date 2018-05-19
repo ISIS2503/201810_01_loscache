@@ -1,0 +1,179 @@
+body
+{
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #000000;
+    background-color: #e9e9e9;
+}
+h1
+{
+    text-align: center;
+}
+body p
+{
+    font-size: 1.03em;
+    line-height: 1.28;
+    DECORATION: none; 
+    TEXT-ALIGN:justify;
+}
+
+#wrapper
+{
+    width: 1080px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 10px;
+    border: 5px solid #dedede;
+    overflow: hidden;
+}
+#banner
+{
+	width: 650px;
+	height: 180px;
+	margin: 0 auto;
+	background: url(../Images/bannersinfondo.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    
+}
+#content_area
+{
+    float: none;
+    width: 1000px;
+    height:auto;
+    margin: 20px 0 20px 0;
+    padding: 15px;
+    overflow: auto;
+}
+#sidebar
+{
+    float: right;
+    width: 250px;
+    height: 400px;
+    margin: 20px 10px;
+    padding: 10px;
+    border: 2px solid  #6B8E23;
+}
+
+#navigation
+{
+    height: 60px;
+    border: 3px solid  #6B8E23;
+    margin-top: 20px;
+    text-shadow: 0.1em 0.1em #333;
+    background-image: url(../Images/bar_background.PNG);
+}
+
+#nav
+{
+    list-style: none;
+}
+
+#nav ul
+{
+    margin: 0;
+    padding: 0;
+    width: auto;
+    display: none;
+}
+
+#nav li
+{
+    font-size: 24px;
+    float: left;
+    position: relative;
+    width: 180px;
+    height: 50px;
+    margin-right: 70px;
+    display: inline;
+}
+
+#nav a:link, nav a:active, nav a:visited
+{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+#nav a:hover
+{
+    color: lightblue;
+}
+
+#tablita
+{
+    overflow-y: scroll;
+    overflow: hidden;
+    max-height: 600px;
+}
+.imgLeft
+{
+    float: left;
+    width: 200;
+    height: 250px;
+    margin: 0px 0px 0px 0px;
+    padding: 10px;
+}
+
+.imgRight
+{
+    float: right;
+    width: 200px;
+    height: 300;
+    margin: 0px 0 0px 0px;
+    padding: 0px;
+}
+
+ .footer
+       {
+           margin: 35px;
+           position: relative;
+           bottom: 0;
+       }
+       #wrapper
+       {
+           max-width: 1800px;
+           margin-left: auto;
+           margin-right: auto;
+       }
+      #map {
+        float: right;
+        height: 500px;
+        margin: 10 10px;
+        width: 50%;
+      }
+      #marcadores {
+          margin: 0 1.5%;
+          width: 40%;
+          float:left;
+          table-layout: auto;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    
+}
+
+#marcadores td, #marcadores th {
+    border: 1px solid #ddd;
+    padding: 2px;
+}
+
+#marcadores tr:nth-child(even){background-color: #f2f2f2;}
+
+#marcadores tr:hover {background-color: #ddd;}
+
+#marcadores th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    overflow: hidden;
+}
+
+.imagenes{
+    display: flex;
+}
+
+.imagenes img{
+    width: 325px;
+    height: 235px;
+}

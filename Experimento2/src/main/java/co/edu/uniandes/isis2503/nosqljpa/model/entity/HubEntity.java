@@ -34,7 +34,7 @@ import javax.persistence.Table;
  * @author loscache
  */
 @Entity
-@Table(name = "Hub")
+@Table(name = "HUB")
 public class HubEntity implements Serializable {
     
      @Id

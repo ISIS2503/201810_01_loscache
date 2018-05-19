@@ -48,6 +48,8 @@ public class InmuebleConverter implements IInmuebleConverter{
         dto.setPropietario(entity.getPropietario());
         dto.setSensores(entity.getSensores());
         dto.setIdUnidad(entity.getIdUnidad());
+        dto.setTelPropietario(entity.getTelPropietario());
+        dto.setEmailPropietario(entity.getEmailPropietario());
         return dto;
     }
 
@@ -57,6 +59,8 @@ public class InmuebleConverter implements IInmuebleConverter{
         entity.setPropietario(dto.getPropietario());
         entity.setSensores(dto.getSensores());
         entity.setIdUnidad(dto.getIdUnidad());
+        entity.setTelPropietario(dto.getTelPropietario());
+        entity.setEmailPropietario(dto.getEmailPropietario());
         return entity;
     }
 
